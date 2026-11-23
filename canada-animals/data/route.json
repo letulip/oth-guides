@@ -1,21 +1,44 @@
 {
+  "terms": {
+    "rarity": {
+      "Common":   {"ru": "обычный", "en": "common"},
+      "Uncommon": {"ru": "необычный", "en": "uncommon"},
+      "Rare":     {"ru": "редкий", "en": "rare"},
+      "VeryRare": {"ru": "легендарный", "en": "legendary"}
+    },
+    "cls": {
+      "Bird":   {"ru": "птица", "en": "bird"},
+      "Fish":   {"ru": "рыба", "en": "fish"},
+      "Mammal": {"ru": "млекопитающее", "en": "mammal"}
+    },
+    "habitat": {
+      "Forest":       {"ru": "лес", "en": "forest"},
+      "RemoteForest": {"ru": "глухой лес", "en": "remote forest"},
+      "Clearing":     {"ru": "поляна", "en": "clearing"},
+      "Mountain":     {"ru": "гора", "en": "mountain"},
+      "Cliff":        {"ru": "скалистые обрывы", "en": "cliffs"},
+      "Lake":         {"ru": "озеро", "en": "lake"},
+      "River":        {"ru": "река", "en": "river"},
+      "Wetlands":     {"ru": "болото", "en": "wetlands"}
+    }
+  },
   "species": {
-    "CanadaGoose":      {"ru": "Канадская казарка", "en": "Canada Goose", "cls": "птица", "rarity": "Обычный", "time": "day", "weather": "dry", "habitat": "болото, озеро", "reward": 10, "spook": 8},
-    "CommonRaven":      {"ru": "Ворон", "en": "Common Raven", "cls": "птица", "rarity": "Обычный", "time": "day", "weather": "dry", "habitat": "лес, гора", "reward": 10, "spook": 8},
-    "KokaneeSalmon":    {"ru": "Лосось кокани", "en": "Kokanee Salmon", "cls": "рыба", "rarity": "Необычный", "time": "any", "weather": "dry", "habitat": "река, озеро", "reward": 20, "spook": null},
-    "RedFoxInfo":       {"ru": "Рыжая лисица", "en": "Red Fox", "cls": "млекопитающее", "rarity": "Обычный", "time": "any", "weather": "dry", "habitat": "лес, поляна", "reward": 10, "spook": 15},
-    "Moose":            {"ru": "Лось", "en": "Moose", "cls": "млекопитающее", "rarity": "Необычный", "time": "any", "weather": "any", "habitat": "лес, болото", "reward": 20, "spook": 15},
-    "Coyote":           {"ru": "Койот", "en": "Coyote", "cls": "млекопитающее", "rarity": "Необычный", "time": "any", "weather": "dry", "habitat": "лес, поляна", "reward": 20, "spook": 15},
-    "MuleDeerMale":     {"ru": "Чернохвостый олень", "en": "Mule Deer", "cls": "млекопитающее", "rarity": "Обычный", "time": "any", "weather": "any", "habitat": "лес, поляна", "reward": 10, "spook": 15},
-    "Elk":              {"ru": "Вапити", "en": "Elk", "cls": "млекопитающее", "rarity": "Обычный", "time": "any", "weather": "any", "habitat": "лес, гора", "reward": 10, "spook": 15},
-    "Beaver":           {"ru": "Бобр", "en": "Beaver", "cls": "млекопитающее", "rarity": "Необычный", "time": "night", "weather": "any", "habitat": "река", "reward": 20, "spook": 15},
-    "GrayWolf":         {"ru": "Серый волк", "en": "Gray Wolf", "cls": "млекопитающее", "rarity": "Необычный", "time": "night", "weather": "any", "habitat": "лес", "reward": 20, "spook": 15},
-    "BlackBear":        {"ru": "Черный медведь", "en": "Black Bear", "cls": "млекопитающее", "rarity": "Редкий", "time": "any", "weather": "dry", "habitat": "лес", "reward": 50, "spook": 15},
-    "Sasquatch":        {"ru": "Сасквоч", "en": "Sasquatch", "cls": "млекопитающее", "rarity": "Легендарный", "time": "night", "weather": "dry", "habitat": "глухой лес", "reward": 100, "spook": 15},
-    "BaldEagle":        {"ru": "Белоголовый орлан", "en": "Bald Eagle", "cls": "птица", "rarity": "Необычный", "time": "day", "weather": "dry", "habitat": "озеро, скалистые обрывы", "reward": 20, "spook": null},
-    "MountainGoat":     {"ru": "Горная коза", "en": "Mountain Goat", "cls": "млекопитающее", "rarity": "Обычный", "time": "day", "weather": "dry", "habitat": "гора", "reward": 10, "spook": 15},
-    "BighornSheepMale": {"ru": "Толсторогий баран", "en": "Bighorn Sheep", "cls": "млекопитающее", "rarity": "Обычный", "time": "day", "weather": "dry", "habitat": "лес, гора", "reward": 20, "spook": 15},
-    "GrizzlyBear":      {"ru": "Медведь гризли", "en": "Grizzly Bear", "cls": "млекопитающее", "rarity": "Редкий", "time": "day", "weather": "dry", "habitat": "глухой лес, река, озеро", "reward": 50, "spook": 15}
+    "CanadaGoose":      {"ru": "Канадская казарка", "en": "Canada Goose", "cls": "Bird", "rarity": "Common", "time": "day", "weather": "dry", "habitat": ["Wetlands", "Lake"], "reward": 10, "spook": 8},
+    "CommonRaven":      {"ru": "Ворон", "en": "Common Raven", "cls": "Bird", "rarity": "Common", "time": "day", "weather": "dry", "habitat": ["Forest", "Mountain"], "reward": 10, "spook": 8},
+    "KokaneeSalmon":    {"ru": "Лосось кокани", "en": "Kokanee Salmon", "cls": "Fish", "rarity": "Uncommon", "time": "any", "weather": "dry", "habitat": ["River", "Lake"], "reward": 20, "spook": null},
+    "RedFoxInfo":       {"ru": "Рыжая лисица", "en": "Red Fox", "cls": "Mammal", "rarity": "Common", "time": "any", "weather": "dry", "habitat": ["Forest", "Clearing"], "reward": 10, "spook": 15},
+    "Moose":            {"ru": "Лось", "en": "Moose", "cls": "Mammal", "rarity": "Uncommon", "time": "any", "weather": "any", "habitat": ["Forest", "Wetlands"], "reward": 20, "spook": 15},
+    "Coyote":           {"ru": "Койот", "en": "Coyote", "cls": "Mammal", "rarity": "Uncommon", "time": "any", "weather": "dry", "habitat": ["Forest", "Clearing"], "reward": 20, "spook": 15},
+    "MuleDeerMale":     {"ru": "Чернохвостый олень", "en": "Mule Deer", "cls": "Mammal", "rarity": "Common", "time": "any", "weather": "any", "habitat": ["Forest", "Clearing"], "reward": 10, "spook": 15},
+    "Elk":              {"ru": "Вапити", "en": "Elk", "cls": "Mammal", "rarity": "Common", "time": "any", "weather": "any", "habitat": ["Forest", "Mountain"], "reward": 10, "spook": 15},
+    "Beaver":           {"ru": "Бобр", "en": "Beaver", "cls": "Mammal", "rarity": "Uncommon", "time": "night", "weather": "any", "habitat": ["River"], "reward": 20, "spook": 15},
+    "GrayWolf":         {"ru": "Серый волк", "en": "Gray Wolf", "cls": "Mammal", "rarity": "Uncommon", "time": "night", "weather": "any", "habitat": ["Forest"], "reward": 20, "spook": 15},
+    "BlackBear":        {"ru": "Черный медведь", "en": "Black Bear", "cls": "Mammal", "rarity": "Rare", "time": "any", "weather": "dry", "habitat": ["Forest"], "reward": 50, "spook": 15},
+    "Sasquatch":        {"ru": "Сасквоч", "en": "Sasquatch", "cls": "Mammal", "rarity": "VeryRare", "time": "night", "weather": "dry", "habitat": ["RemoteForest"], "reward": 100, "spook": 15},
+    "BaldEagle":        {"ru": "Белоголовый орлан", "en": "Bald Eagle", "cls": "Bird", "rarity": "Uncommon", "time": "day", "weather": "dry", "habitat": ["Lake", "Cliff"], "reward": 20, "spook": null},
+    "MountainGoat":     {"ru": "Горная коза", "en": "Mountain Goat", "cls": "Mammal", "rarity": "Common", "time": "day", "weather": "dry", "habitat": ["Mountain"], "reward": 10, "spook": 15},
+    "BighornSheepMale": {"ru": "Толсторогий баран", "en": "Bighorn Sheep", "cls": "Mammal", "rarity": "Common", "time": "day", "weather": "dry", "habitat": ["Forest", "Mountain"], "reward": 20, "spook": 15},
+    "GrizzlyBear":      {"ru": "Медведь гризли", "en": "Grizzly Bear", "cls": "Mammal", "rarity": "Rare", "time": "day", "weather": "dry", "habitat": ["RemoteForest", "River", "Lake"], "reward": 50, "spook": 15}
   },
   "areas": [
     {
@@ -25,74 +48,128 @@
       "en": "Emerald Lake",
       "map": "maps/emerald-lake.webp",
       "view": [-1450, -800, 1000, 1320],
-      "lead": "Днём – запад карты (точки 1–4), лагерь у вапити, ночью – центр и северный луг (5–8), потом паром на Гимли-Ридж. Здесь 12 видов из 16.",
+      "lead": {
+        "ru": "Днём – запад карты (точки 1–4), лагерь у вапити, ночью – центр и северный луг (5–8), потом паром на Гимли-Ридж. Здесь 12 видов из 16.",
+        "en": "By day – the west of the map (stops 1–4) and camp by the elk; by night – the middle and the northern meadow (5–8), then the ferry to Gimli Ridge. 12 of the 16 species live here."
+      },
       "stops": [
         {
           "n": 1, "phase": "day", "x": -1034.5, "z": 85.2,
-          "title": "Хижина: Озеро Элизабет",
+          "title": {"ru": "Хижина: Озеро Элизабет", "en": "Elizabeth Lake Cabin"},
           "targets": ["CanadaGoose", "CommonRaven", "KokaneeSalmon", "RedFoxInfo"],
-          "text": "Старт: быстрое перемещение в Хижину: Озеро Элизабет. Четыре вида, не отъезжая: казарки у берега в 40 м к западу, ворон летает над хижиной, лосось в воде в 60 м к западу, лиса в 150 м к востоку.",
-          "tip": "Казарке и ворону нужен день. Если на старте ночь, сразу разбейте лагерь: из ночи он всегда выводит в день.",
-          "ach": ["Say Cheese! – первый снимок"]
+          "text": {
+            "ru": "Старт: быстрое перемещение в Хижину: Озеро Элизабет. Четыре вида, не отъезжая: казарки у берега в 40 м к западу, ворон летает над хижиной, лосось в воде в 60 м к западу, лиса в 150 м к востоку.",
+            "en": "Start: fast travel to Elizabeth Lake Cabin. Four species without driving anywhere: geese on the shore 40 m to the west, a raven flying over the cabin, salmon in the water 60 m to the west, a fox 150 m to the east."
+          },
+          "tip": {
+            "ru": "Казарке и ворону нужен день. Если на старте ночь, сразу разбейте лагерь: из ночи он всегда выводит в день.",
+            "en": "The goose and the raven need daytime. If it is night when you start, make camp right away: from night, camping always takes you to day."
+          },
+          "ach": [{"name": "Say Cheese!", "ru": "первый снимок", "en": "your first photo"}]
         },
         {
           "n": 2, "phase": "day", "x": -764.0, "z": -28.2,
-          "title": "Лось",
+          "title": {"ru": "Лось", "en": "Moose"},
           "targets": ["Moose"],
-          "text": "290 м к юго-востоку от хижины. Лось выходит днём и ночью, в любую погоду.",
-          "backup": "Не вышел – ещё две точки по маршруту: на северном лугу рядом с точкой 7 и в 210 м к западу от парома (точка 9)."
+          "text": {
+            "ru": "290 м к юго-востоку от хижины. Лось выходит днём и ночью, в любую погоду.",
+            "en": "290 m south-east of the cabin. The moose comes out day and night, in any weather."
+          },
+          "backup": {
+            "ru": "Не вышел – ещё две точки по маршруту: на северном лугу рядом с точкой 7 и в 210 м к западу от парома (точка 9).",
+            "en": "No moose – there are two more spots on the route: on the northern meadow next to stop 7, and 210 m west of the ferry (stop 9)."
+          }
         },
         {
           "n": 3, "phase": "day", "x": -725.0, "z": -455.0,
-          "title": "Койот и чернохвостый олень",
+          "title": {"ru": "Койот и чернохвостый олень", "en": "Coyote and Mule Deer"},
           "targets": ["Coyote", "MuleDeerMale"],
-          "text": "430 м к югу, в 360 м к востоку от Хижины: Озеро Павильон. Два оленя – в 90 м западнее койота.",
-          "tip": "Койоту нужна сухая погода. В дождь снимайте оленя, а койота берите у парома: запасная точка в 350 м к западу от него."
+          "text": {
+            "ru": "430 м к югу, в 360 м к востоку от Хижины: Озеро Павильон. Два оленя – в 90 м западнее койота.",
+            "en": "430 m south, 360 m east of Pavilion Lake Cabin. Two deer spots lie 90 m west of the coyote."
+          },
+          "tip": {
+            "ru": "Койоту нужна сухая погода. В дождь снимайте оленя, а койота берите у парома: запасная точка в 350 м к западу от него.",
+            "en": "The coyote needs dry weather. If it rains, shoot the deer and get the coyote near the ferry: there is a backup spot 350 m west of it."
+          }
         },
         {
           "n": 4, "phase": "day", "camp": true, "x": -325.0, "z": -391.0,
-          "title": "Вапити, потом лагерь",
+          "title": {"ru": "Вапити, потом лагерь", "en": "Elk, then camp"},
           "targets": ["Elk"],
-          "text": "400 м к востоку, четыре точки вапити рядом. Сняли – разбейте лагерь прямо здесь: 12 часов пролетят за 45 секунд, и вы проснётесь ночью в 140 м от бобров.",
-          "tip": "Лагерь приводит в ночь, если разбит с 08:00 до 17:00. С 17:00 до 20:00 проще дождаться темноты: это до 9 минут. Оба игрока должны быть в 15 м от палатки."
+          "text": {
+            "ru": "400 м к востоку, четыре точки вапити рядом. Сняли – разбейте лагерь прямо здесь: 12 часов пролетят за 45 секунд, и вы проснётесь ночью в 140 м от бобров.",
+            "en": "400 m east, four elk spots close together. Once you have it, make camp right here: 12 hours fly by in 45 seconds and you wake up at night 140 m from the beavers."
+          },
+          "tip": {
+            "ru": "Лагерь приводит в ночь, если разбит с 08:00 до 17:00. С 17:00 до 20:00 проще дождаться темноты: это до 9 минут. Оба игрока должны быть в 15 м от палатки.",
+            "en": "Camping takes you to night only if you set it up between 08:00 and 17:00. Between 17:00 and 20:00 it is easier to wait for dark: that is up to 9 minutes. Both players must be within 15 m of the tent."
+          }
         },
         {
           "n": 5, "phase": "night", "x": -332.0, "z": -252.0,
-          "title": "Бобр",
+          "title": {"ru": "Бобр", "en": "Beaver"},
           "targets": ["Beaver"],
-          "text": "140 м к северу от лагеря, у реки, пять точек. Бобр выходит только ночью, дождь ему не мешает.",
-          "ach": ["Night Watcher – ночное животное"]
+          "text": {
+            "ru": "140 м к северу от лагеря, у реки, пять точек. Бобр выходит только ночью, дождь ему не мешает.",
+            "en": "140 m north of the camp, by the river, five spots. The beaver comes out only at night, and rain does not stop it."
+          },
+          "ach": [{"name": "Night Watcher", "ru": "ночное животное", "en": "a nocturnal animal"}]
         },
         {
           "n": 6, "phase": "night", "x": -102.0, "z": 223.0,
-          "title": "Серый волк",
+          "title": {"ru": "Серый волк", "en": "Gray Wolf"},
           "targets": ["GrayWolf"],
-          "text": "530 м на северо-восток, две точки рядом, в 230 м к юго-западу от Логова чёрного медведя. Только ночью, погода любая.",
-          "backup": "Запасные волки: в 340 м к югу от лагеря (три точки) и в 450 м к северо-востоку от Хижины: Озеро Павильон."
+          "text": {
+            "ru": "530 м на северо-восток, две точки рядом, в 230 м к юго-западу от Логова чёрного медведя. Только ночью, погода любая.",
+            "en": "530 m north-east, two spots close together, 230 m south-west of Black Bear’s Den. Night only, any weather."
+          },
+          "backup": {
+            "ru": "Запасные волки: в 340 м к югу от лагеря (три точки) и в 450 м к северо-востоку от Хижины: Озеро Павильон.",
+            "en": "Backup wolves: 340 m south of the camp (three spots) and 450 m north-east of Pavilion Lake Cabin."
+          }
         },
         {
           "n": 7, "phase": "night", "x": 393.1, "z": 738.7,
-          "title": "Черный медведь",
+          "title": {"ru": "Черный медведь", "en": "Black Bear"},
           "targets": ["BlackBear"],
-          "text": "Мимо Логова чёрного медведя на северный луг: 490 м к северо-востоку от хижины. Редкий, днём и ночью, только в сухую погоду. Рядом вапити и олени, если раньше не повезло.",
-          "backup": "Вторая пара точек – на юго-востоке, в 480 м к юго-востоку от Хижины: Бёрч-Гроув.",
-          "ach": ["Rare Encounter – редкое животное"]
+          "text": {
+            "ru": "Мимо Логова чёрного медведя на северный луг: 490 м к северо-востоку от хижины. Редкий, днём и ночью, только в сухую погоду. Рядом вапити и олени, если раньше не повезло.",
+            "en": "Past Black Bear’s Den to the northern meadow: 490 m north-east of the cabin. Rare, day and night, dry weather only. Elk and deer are nearby too, if you had no luck earlier."
+          },
+          "backup": {
+            "ru": "Вторая пара точек – на юго-востоке, в 480 м к юго-востоку от Хижины: Бёрч-Гроув.",
+            "en": "The second pair of spots is in the south-east, 480 m south-east of Birch Grove Hut."
+          },
+          "ach": [{"name": "Rare Encounter", "ru": "редкое животное", "en": "a rare animal"}]
         },
         {
           "n": 8, "phase": "night", "x": 279.5, "z": 901.5,
-          "title": "Сасквоч",
+          "title": {"ru": "Сасквоч", "en": "Sasquatch"},
           "targets": ["Sasquatch"],
-          "text": "200 м к северо-западу от медведя, в глухом лесу. Единственная точка на всю Канаду: нужны ночь и сухая погода.",
-          "tip": "Не видно – проверьте время и погоду и подождите 10–20 секунд: условия игра проверяет раз в 10 с. Идёт дождь – переждите, погода меняется каждые 3–12 минут.",
-          "ach": ["A Tale Come True – легендарное животное"]
+          "text": {
+            "ru": "200 м к северо-западу от медведя, в глухом лесу. Единственная точка на всю Канаду: нужны ночь и сухая погода.",
+            "en": "200 m north-west of the bear, in the remote forest. The only spot in all of Canada: it needs night and dry weather."
+          },
+          "tip": {
+            "ru": "Не видно – проверьте время и погоду и подождите 10–20 секунд: условия игра проверяет раз в 10 с. Идёт дождь – переждите, погода меняется каждые 3–12 минут.",
+            "en": "Nothing there? Check the time and the weather and wait 10–20 seconds: the game checks the conditions every 10 s. If it is raining, wait it out – the weather changes every 3–12 minutes."
+          },
+          "ach": [{"name": "A Tale Come True", "ru": "легендарное животное", "en": "a legendary animal"}]
         },
         {
           "n": 9, "phase": "portal", "x": 594.6, "z": -28.9,
-          "title": "Паром к Хребту",
+          "title": {"ru": "Паром к Хребту", "en": "Ferry to the Ridge"},
           "targets": [],
           "extra": ["Moose", "Coyote"],
-          "text": "980 м к югу, на берегу. Паром везёт на Гимли-Ридж. Все игроки должны стоять рядом с порталом.",
-          "backup": "По пути – запасные лось (210 м к западу от парома) и койот (350 м к западу), если днём они не вышли."
+          "text": {
+            "ru": "980 м к югу, на берегу. Паром везёт на Гимли-Ридж. Все игроки должны стоять рядом с порталом.",
+            "en": "980 m south, on the shore. The ferry takes you to Gimli Ridge. All players must stand next to the portal."
+          },
+          "backup": {
+            "ru": "По пути – запасные лось (210 м к западу от парома) и койот (350 м к западу), если днём они не вышли.",
+            "en": "On the way – a backup moose (210 m west of the ferry) and coyote (350 m west), if they did not show up during the day."
+          }
         }
       ]
     },
@@ -103,59 +180,105 @@
       "en": "Gimli Ridge",
       "map": "maps/gimli-ridge.webp",
       "view": [-750, -1050, 1850, 750],
-      "lead": "Оставшимся четырём видам нужны день и сухая погода. Все четыре живут на восточном хребте за Логовом валкирии.",
+      "lead": {
+        "ru": "Оставшимся четырём видам нужны день и сухая погода. Все четыре живут на восточном хребте за Логовом валкирии.",
+        "en": "The last four species need daytime and dry weather. All four live on the eastern ridge past Valkyr Lodge."
+      },
       "stops": [
         {
           "n": 10, "phase": "portal", "x": -273.4, "z": -630.3,
-          "title": "Переправа к горе",
+          "title": {"ru": "Переправа к горе", "en": "Ferry to the Mountain"},
           "targets": [],
-          "text": "Паром высаживает у причала, в 120 м к северу от Хижины захода солнца.",
-          "tip": "Время и погода после портала могут быть любыми. Ночь – разбейте лагерь у причала: из ночи он всегда выводит в день."
+          "text": {
+            "ru": "Паром высаживает у причала, в 120 м к северу от Хижины захода солнца.",
+            "en": "The ferry drops you off at the pier, 120 m north of Sunset Landing Cabin."
+          },
+          "tip": {
+            "ru": "Время и погода после портала могут быть любыми. Ночь – разбейте лагерь у причала: из ночи он всегда выводит в день.",
+            "en": "Time and weather after a portal can be anything. If it is night, make camp at the pier: from night, camping always takes you to day."
+          }
         },
         {
           "n": 11, "phase": "day", "x": 568.6, "z": -369.9,
-          "title": "Белоголовый орлан",
+          "title": {"ru": "Белоголовый орлан", "en": "Bald Eagle"},
           "targets": ["BaldEagle"],
-          "text": "880 м к востоку, в 140 м к северо-западу от Логова валкирии. Орлан летает кругами: ищите его в небе и ведите камерой.",
-          "backup": "Второй орлан кружит у гризли (точка 14)."
+          "text": {
+            "ru": "880 м к востоку, в 140 м к северо-западу от Логова валкирии. Орлан летает кругами: ищите его в небе и ведите камерой.",
+            "en": "880 m east, 140 m north-west of Valkyr Lodge. The eagle flies in circles: look for it in the sky and follow it with the camera."
+          },
+          "backup": {
+            "ru": "Второй орлан кружит у гризли (точка 14).",
+            "en": "A second eagle circles near the grizzly (stop 14)."
+          }
         },
         {
           "n": 12, "phase": "day", "x": 1239.0, "z": -554.0,
-          "title": "Горная коза",
+          "title": {"ru": "Горная коза", "en": "Mountain Goat"},
           "targets": ["MountainGoat"],
-          "text": "Подъём на восточный хребет: 610 м к востоку от Логова валкирии, восемь точек."
+          "text": {
+            "ru": "Подъём на восточный хребет: 610 м к востоку от Логова валкирии, восемь точек.",
+            "en": "Climb onto the eastern ridge: 610 m east of Valkyr Lodge, eight spots."
+          }
         },
         {
           "n": 13, "phase": "day", "x": 1359.0, "z": -471.0,
-          "title": "Толсторогий баран",
+          "title": {"ru": "Толсторогий баран", "en": "Bighorn Sheep"},
           "targets": ["BighornSheepMale"],
-          "text": "150 м к северо-востоку от коз, шесть точек.",
-          "backup": "Запасные бараны – в 380 м к северо-западу от Хижины с видом на озеро (три точки)."
+          "text": {
+            "ru": "150 м к северо-востоку от коз, шесть точек.",
+            "en": "150 m north-east of the goats, six spots."
+          },
+          "backup": {
+            "ru": "Запасные бараны – в 380 м к северо-западу от Хижины с видом на озеро (три точки).",
+            "en": "Backup sheep: 380 m north-west of Lake View Cabin (three spots)."
+          }
         },
         {
           "n": 14, "phase": "day", "x": 1556.7, "z": -437.4,
-          "title": "Медведь гризли",
+          "title": {"ru": "Медведь гризли", "en": "Grizzly Bear"},
           "targets": ["GrizzlyBear"],
           "extra": ["BaldEagle"],
-          "text": "200 м к востоку, у реки. Редкий, только днём и в сухую погоду. Здесь же кружит второй орлан. Это 16-й вид – компендиум Канады собран.",
-          "backup": "Запасной гризли – в 180 м к северо-западу от Хижины: Паудер Крик, там же козы и орлан.",
-          "ach": ["Naturalist – весь компендиум региона", "Rare Encounter, если черный медведь не вышел"]
+          "text": {
+            "ru": "200 м к востоку, у реки. Редкий, только днём и в сухую погоду. Здесь же кружит второй орлан. Это 16-й вид – компендиум Канады собран.",
+            "en": "200 m east, by the river. Rare, daytime and dry weather only. The second eagle circles here too. That is species number 16 – the Canada compendium is complete."
+          },
+          "backup": {
+            "ru": "Запасной гризли – в 180 м к северо-западу от Хижины: Паудер Крик, там же козы и орлан.",
+            "en": "Backup grizzly: 180 m north-west of Powder Creek Lodge, with goats and an eagle nearby."
+          },
+          "ach": [
+            {"name": "Naturalist", "ru": "весь компендиум региона", "en": "the whole compendium of the region"},
+            {"name": "Rare Encounter", "ru": "если черный медведь не вышел", "en": "if the black bear did not show up"}
+          ]
         }
       ]
     }
   ],
   "rules": [
-    "Снимайте только сафари-камерой: снимок из фоторежима в компендиум не идёт.",
-    "Снимают оба: компендиум у каждого игрока свой.",
-    "Животное появляется, когда машина ближе 200 м к точке спавна. Время и погоду игра проверяет раз в 10 секунд.",
-    "Ближе 15 м зверь убежит, птица – ближе 8 м. Сигнал пугает с 30 м: гудите только после снимка.",
-    "День – с 05:00 до 20:00, ночь – с 20:00 до 05:00. Игровые сутки идут 73 минуты: день около 45 минут, ночь около 27.",
-    "Лагерь перематывает 12 часов примерно за 45 секунд. Из ночи он всегда выводит в день, в ночь – только если разбит с 08:00 до 17:00.",
-    "Сухо – значит без дождя и снега. В дождь годятся вапити, чернохвостый олень, лось, бобр и волк."
+    {"ru": "Снимайте только сафари-камерой: снимок из фоторежима в компендиум не идёт.",
+     "en": "Use the safari camera only: shots taken in photo mode do not count for the compendium."},
+    {"ru": "Снимают оба: компендиум у каждого игрока свой.",
+     "en": "Both of you take the shot: each player has their own compendium."},
+    {"ru": "Животное появляется, когда машина ближе 200 м к точке спавна. Время и погоду игра проверяет раз в 10 секунд.",
+     "en": "An animal appears when a vehicle is within 200 m of its spawn point. The game checks the time and the weather every 10 seconds."},
+    {"ru": "Ближе 15 м зверь убежит, птица – ближе 8 м. Сигнал пугает с 30 м: гудите только после снимка.",
+     "en": "Mammals run off when you get closer than 15 m, birds closer than 8 m. The horn scares them from 30 m: honk only after the shot."},
+    {"ru": "День – с 05:00 до 20:00, ночь – с 20:00 до 05:00. Игровые сутки идут 73 минуты: день около 45 минут, ночь около 27.",
+     "en": "Day is 05:00–20:00, night is 20:00–05:00. A game day lasts 73 minutes: about 45 minutes of daylight and 27 of night."},
+    {"ru": "Лагерь перематывает 12 часов примерно за 45 секунд. Из ночи он всегда выводит в день, в ночь – только если разбит с 08:00 до 17:00.",
+     "en": "Camping skips 12 hours in about 45 seconds. From night it always takes you to day; it takes you to night only if you set it up between 08:00 and 17:00."},
+    {"ru": "Сухо – значит без дождя и снега. В дождь годятся вапити, чернохвостый олень, лось, бобр и волк.",
+     "en": "Dry means no rain or snow. In the rain you can still shoot the elk, mule deer, moose, beaver and wolf."}
   ],
   "extraAch": [
-    "Close Encounter – млекопитающее ближе 10 м. Звери пугаются с 15 м, так что это удача, а не пункт плана.",
-    "Making Memories – 20 снимков: наберётся, если снимать с запасом.",
-    "Birdwatcher (5 видов птиц) в Канаде не закрыть: птиц тут три."
+    {"name": "Close Encounter",
+     "ru": "млекопитающее ближе 10 м. Звери пугаются с 15 м, так что это удача, а не пункт плана.",
+     "en": "a mammal closer than 10 m. Animals spook at 15 m, so this one is luck, not part of the plan."},
+    {"name": "Making Memories",
+     "ru": "20 снимков: наберётся, если снимать с запасом.",
+     "en": "20 photos: you will get there if you take a few extra shots."},
+    {"name": "Birdwatcher",
+     "ru": "5 видов птиц: в Канаде не закрыть, птиц тут три.",
+     "en": "5 bird species: cannot be done in Canada, there are only three birds here."}
   ]
 }
