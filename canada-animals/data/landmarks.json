@@ -1,0 +1,166 @@
+{
+ "R1A1": [
+  {
+   "id": "R1A1_Cabin1",
+   "kind": "cabin",
+   "ru": "Хижина: Озеро Павильон",
+   "en": "Pavilion Lake Cabin",
+   "x": -1045.0,
+   "z": -437.5
+  },
+  {
+   "id": "R1A1_Cabin5",
+   "kind": "cabin",
+   "ru": "Логово чёрного медведя",
+   "en": "Black Bear’s Den",
+   "x": 37.7,
+   "z": 404.4
+  },
+  {
+   "id": "R1A1_Cabin3",
+   "kind": "cabin",
+   "ru": "Хижина: Озеро Элизабет",
+   "en": "Elizabeth Lake Cabin",
+   "x": -1034.5,
+   "z": 85.2
+  },
+  {
+   "id": "R1A1_Cabin6",
+   "kind": "cabin",
+   "ru": "Хижина: Бёрч-Гроув",
+   "en": "Birch Grove Hut",
+   "x": 138.4,
+   "z": -399.5
+  },
+  {
+   "id": "R1A1_Cabin2",
+   "kind": "cabin",
+   "ru": "Хижина: Малахит",
+   "en": "Malachite Lodge",
+   "x": 1389.5,
+   "z": -933.8
+  },
+  {
+   "id": "R1A1_ExitPortal",
+   "kind": "portal",
+   "ru": "Паром к Хребту",
+   "en": "Ferry to the Ridge",
+   "x": 594.6,
+   "z": -28.9
+  },
+  {
+   "id": "R1A1_Cabin4",
+   "kind": "cabin",
+   "ru": "Пивоварня",
+   "en": "Brew Hut",
+   "x": -828.5,
+   "z": 399.9
+  },
+  {
+   "id": "R1A1_Merchant",
+   "kind": "merchant",
+   "ru": "Сумасшедший Гюнтер",
+   "en": "Crazy Günther",
+   "x": -1036.4,
+   "z": -287.8
+  }
+ ],
+ "R1A2": [
+  {
+   "id": "R1A2_ExitPortal",
+   "kind": "portal",
+   "ru": "Туннель к горе Асгард",
+   "en": "Tunnel to Asgard Mountain",
+   "x": 1063.9,
+   "z": 1692.6
+  },
+  {
+   "id": "R1A2_Cabin3",
+   "kind": "cabin",
+   "ru": "Хижина: Нерта",
+   "en": "Nerthus Cabin",
+   "x": -961.8,
+   "z": -1463.9
+  },
+  {
+   "id": "R1A2_Cabin7",
+   "kind": "cabin",
+   "ru": "Хижина: Сиэр",
+   "en": "Seer Lodge",
+   "x": -263.0,
+   "z": 570.4
+  },
+  {
+   "id": "R1A2_Cabin8",
+   "kind": "cabin",
+   "ru": "Хижина: Гора Гибсон",
+   "en": "Mount Gibson Lodge",
+   "x": -1114.4,
+   "z": 256.7
+  },
+  {
+   "id": "R1A2_Cabin2",
+   "kind": "cabin",
+   "ru": "Хижина: Уединённое болото",
+   "en": "Secluded Marsh Bunkie",
+   "x": 68.5,
+   "z": -1360.0
+  },
+  {
+   "id": "R1A2_Cabin6",
+   "kind": "cabin",
+   "ru": "Хижина: Паудер Крик",
+   "en": "Powder Creek Lodge",
+   "x": 461.6,
+   "z": 195.3
+  },
+  {
+   "id": "R1A2_Cabin1",
+   "kind": "cabin",
+   "ru": "Хижина захода солнца",
+   "en": "Sunset Landing Cabin",
+   "x": -280.6,
+   "z": -749.4
+  },
+  {
+   "id": "R1A2_Cabin4",
+   "kind": "cabin",
+   "ru": "Хижина с видом на озеро",
+   "en": "Lake View Cabin",
+   "x": -324.2,
+   "z": -386.2
+  },
+  {
+   "id": "R1A2_Cabin5",
+   "kind": "cabin",
+   "ru": "Логово валкирии",
+   "en": "Valkyr Lodge",
+   "x": 632.5,
+   "z": -498.3
+  },
+  {
+   "id": "R1A2_Cabin9",
+   "kind": "cabin",
+   "ru": "Альпийский домик: Уайткап",
+   "en": "Whitecap Alpine Lodge",
+   "x": 892.6,
+   "z": 1283.2
+  },
+  {
+   "id": "R1A2_EntryPortal",
+   "kind": "portal",
+   "ru": "Переправа к горе",
+   "en": "Ferry to the Mountain",
+   "x": -273.4,
+   "z": -630.3
+  },
+  {
+   "id": "R1A2_Merchant",
+   "kind": "merchant",
+   "ru": "Сумасшедший Гюнтер",
+   "en": "Crazy Günther",
+   "x": 680.7,
+   "z": -725.5
+  }
+ ]
+}

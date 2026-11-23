@@ -1,0 +1,798 @@
+<title>Фотоохота в Канаде</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Over the Hill: маршрут по всем 16 животным Канады – Изумрудное озеро и Гимли-Ридж, точки по порядку, время суток и погода.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: sticky game map on the left with the route drawn over it, the numbered stop list on the right; one column on phones. */
+:root {
+  --bg: #edf1ec;
+  --surface: #ffffff;
+  --surface-2: #f5f8f4;
+  --ink: #16221c;
+  --muted: #55655d;
+  --line: #d3dbd4;
+  --accent: #d9480f;
+  --day: #b93c0b;
+  --day-bg: #ffeddc;
+  --night: #3f37c9;
+  --night-bg: #e3e6ff;
+  --portal: #0d6e66;
+  --portal-bg: #d3f5ef;
+  --ok: #17803d;
+  --ok-bg: #dcf3e3;
+  --mk-day: #e8590c;
+  --mk-night: #4f46e5;
+  --mk-portal: #0d9488;
+  --mk-ink: #13201a;
+  --mk-halo: #ffffff;
+  --mk-soft: rgba(19, 32, 26, 0.55);
+  --map-filter: none;
+  --shadow: 0 1px 2px rgba(22, 34, 28, 0.06), 0 4px 18px rgba(22, 34, 28, 0.07);
+  --font-display: "Barlow Condensed", "Roboto Condensed", "Arial Narrow", sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1411; --surface: #151d19; --surface-2: #1a2420; --ink: #e2e9e4; --muted: #9aaba2; --line: #2b3731;
+    --accent: #ff7a33; --day: #ffb47a; --day-bg: #3a2414; --night: #aab4ff; --night-bg: #211f4d;
+    --portal: #5fe3cf; --portal-bg: #0f2f2b; --ok: #5ad987; --ok-bg: #12301f;
+    --map-filter: brightness(0.86) saturate(0.92);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 6px 22px rgba(0, 0, 0, 0.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1411; --surface: #151d19; --surface-2: #1a2420; --ink: #e2e9e4; --muted: #9aaba2; --line: #2b3731;
+  --accent: #ff7a33; --day: #ffb47a; --day-bg: #3a2414; --night: #aab4ff; --night-bg: #211f4d;
+  --portal: #5fe3cf; --portal-bg: #0f2f2b; --ok: #5ad987; --ok-bg: #12301f;
+  --map-filter: brightness(0.86) saturate(0.92);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 6px 22px rgba(0, 0, 0, 0.35);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 40px;
+}
+.wrap { max-width: 1320px; margin: 0 auto; display: grid; gap: 18px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; letter-spacing: 0.01em; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+
+/* Header */
+.top { display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: end; justify-content: space-between; }
+.top .brand { display: grid; gap: 6px; min-width: 0; max-width: 62ch; }
+.eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+h1 { font-size: clamp(34px, 5vw, 54px); line-height: 0.95; text-transform: uppercase; }
+.lede { color: var(--muted); }
+.tally { display: grid; gap: 6px; min-width: 210px; }
+.tally-num { font-family: var(--font-display); font-size: 40px; line-height: 1; font-variant-numeric: tabular-nums; }
+.tally-num b { color: var(--accent); }
+.tally-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+.tally-bar { height: 6px; border-radius: 99px; background: var(--line); overflow: hidden; }
+.tally-bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .3s ease; }
+
+/* Tabs */
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.tab {
+  display: grid; grid-template-columns: auto 1fr; column-gap: 10px; align-items: center; text-align: left;
+  padding: 9px 16px 9px 10px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); cursor: pointer;
+}
+.tab .tab-n {
+  grid-row: span 2; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
+  font-family: var(--font-display); font-size: 18px; background: var(--surface-2); border: 1px solid var(--line);
+}
+.tab .tab-name { font-family: var(--font-display); font-size: 21px; font-weight: 700; line-height: 1.1; }
+.tab .tab-sub { font-size: 12px; color: var(--muted); }
+.tab[aria-selected="true"] { border-color: var(--ink); box-shadow: var(--shadow); }
+.tab[aria-selected="true"] .tab-n { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+
+/* Board */
+.board { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+.mapcol { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px); display: grid; gap: 10px; min-width: 0; }
+.mapcol > * { min-width: 0; }
+.map {
+  position: relative; width: 100%; aspect-ratio: 4 / 3.3; max-height: calc(100vh - 150px); min-height: 320px;
+  border-radius: 16px; overflow: hidden; background: #dfe6df; border: 1px solid var(--line); box-shadow: var(--shadow);
+  touch-action: none; user-select: none; -webkit-user-select: none;
+}
+.map svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; }
+.map svg.dragging { cursor: grabbing; }
+.map image { filter: var(--map-filter); }
+.map-ctrl { position: absolute; top: 10px; right: 10px; display: flex; gap: 6px; }
+.map-ctrl button {
+  min-width: 36px; height: 36px; padding: 0 10px; border-radius: 10px; border: 1px solid rgba(19, 32, 26, .18);
+  background: rgba(255, 255, 255, .94); color: #13201a; font-weight: 600; cursor: pointer; box-shadow: 0 1px 4px rgba(0, 0, 0, .12);
+}
+.map-ctrl button:hover { background: #fff; }
+.map-area-name {
+  position: absolute; left: 12px; top: 10px; padding: 4px 10px; border-radius: 8px; background: rgba(255, 255, 255, .92);
+  color: #13201a; font-family: var(--font-display); font-size: 18px; font-weight: 700; pointer-events: none;
+}
+.caption {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 10px 12px; border-radius: 12px;
+  background: var(--surface); border: 1px solid var(--line); min-height: 48px;
+}
+.caption .cap-title { font-family: var(--font-display); font-size: 19px; font-weight: 700; }
+.caption .cap-sp { font-size: 12.5px; color: var(--muted); min-width: 0; }
+.caption .cap-more { margin-left: auto; font-size: 13px; color: var(--accent); background: none; border: 0; cursor: pointer; padding: 4px 0; font-weight: 600; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend svg { width: 16px; height: 16px; flex: none; }
+.hint { font-size: 12px; color: var(--muted); }
+
+/* Badges & chips */
+.badge {
+  flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+  font-family: var(--font-display); font-size: 19px; font-weight: 700; color: #fff; font-variant-numeric: tabular-nums;
+  border: 2px solid #fff; box-shadow: 0 0 0 1.5px rgba(19, 32, 26, .35);
+}
+.badge.day { background: var(--mk-day); }
+.badge.night { background: var(--mk-night); }
+.badge.portal { background: var(--mk-portal); }
+.badge.sm { width: 26px; height: 26px; font-size: 15px; }
+.chips { display: inline-flex; flex-wrap: wrap; gap: 5px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 99px; font-size: 12px; font-weight: 600;
+  background: var(--surface-2); color: var(--muted); border: 1px solid var(--line); white-space: nowrap;
+}
+.chip svg { width: 13px; height: 13px; }
+.chip.day { background: var(--day-bg); color: var(--day); border-color: transparent; }
+.chip.night { background: var(--night-bg); color: var(--night); border-color: transparent; }
+.chip.portal { background: var(--portal-bg); color: var(--portal); border-color: transparent; }
+.chip.camp { background: var(--ink); color: var(--surface); border-color: transparent; }
+
+/* Steps */
+.steps { display: grid; gap: 12px; min-width: 0; }
+.area-lead { color: var(--muted); max-width: 62ch; }
+.steplist { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.phase-head {
+  display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 12px; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+}
+.phase-head::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.phase-head .dot { width: 9px; height: 9px; border-radius: 50%; }
+.step { border-radius: 14px; background: var(--surface); border: 1px solid var(--line); scroll-margin-top: 16px; }
+.step.sel { border-color: var(--ink); box-shadow: var(--shadow); }
+.step-head {
+  width: 100%; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 4px 12px; align-items: center;
+  padding: 10px 12px; background: none; border: 0; text-align: left; cursor: pointer; border-radius: 14px;
+}
+.step-title { font-family: var(--font-display); font-size: 21px; font-weight: 700; line-height: 1.1; }
+.step-sub { grid-column: 2 / 4; display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+.step-count { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.step-done { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--ok-bg); color: var(--ok); }
+.step-done svg { width: 14px; height: 14px; }
+.step-body { display: grid; gap: 10px; padding: 0 14px 14px 58px; }
+.step:not(.sel) .step-body { display: none; }
+.animals { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.animal {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px 10px; align-items: start;
+  padding: 8px 10px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--line);
+}
+.animal input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--ok); cursor: pointer; grid-row: span 2; }
+.animal label { font-weight: 600; cursor: pointer; }
+.animal label small { font-weight: 400; color: var(--muted); }
+.animal .meta { grid-column: 2; font-size: 12.5px; color: var(--muted); }
+.animal.got { background: var(--ok-bg); border-color: transparent; }
+.animal.got label { color: var(--ok); }
+.animal.extra { background: none; border-style: dashed; }
+.note { font-size: 13.5px; padding-left: 12px; border-left: 3px solid var(--line); }
+.note b { display: block; font-size: 11.5px; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+.note.tip { border-left-color: var(--accent); }
+.note.ach { border-left-color: var(--ok); }
+
+/* Rules */
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 16px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; display: grid; gap: 10px; align-content: start; }
+.panel h2 { font-size: 26px; text-transform: uppercase; }
+.panel ol, .panel ul { margin: 0; padding-left: 20px; display: grid; gap: 7px; }
+.panel li::marker { color: var(--muted); font-variant-numeric: tabular-nums; }
+.ach-list li span { color: var(--muted); }
+footer { font-size: 12px; color: var(--muted); display: grid; gap: 4px; max-width: 90ch; }
+footer a { color: inherit; }
+
+@media (max-width: 900px) {
+  .board { grid-template-columns: minmax(0, 1fr); }
+  .mapcol { position: static; }
+  .map { aspect-ratio: 1 / 1; max-height: none; }
+}
+@media (max-width: 600px) {
+  .map-area-name { display: none; }
+}
+@media (max-width: 480px) {
+  .step-body { padding-left: 14px; }
+  .tab { flex: 1 1 100%; }
+  .map-ctrl button { min-width: 34px; height: 34px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}
+</style>
+<!-- /head -->
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-sun" viewBox="0 0 16 16"><circle cx="8" cy="8" r="3.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 1.2v1.6M8 13.2v1.6M1.2 8h1.6M13.2 8h1.6M3.2 3.2l1.1 1.1M11.7 11.7l1.1 1.1M3.2 12.8l1.1-1.1M11.7 4.3l1.1-1.1"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 16 16"><path d="M10.8 1.6a6.6 6.6 0 1 0 3.6 11.2A5.6 5.6 0 0 1 10.8 1.6Z" fill="currentColor"/></symbol>
+  <symbol id="i-any" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 2a6 6 0 0 1 0 12Z" fill="currentColor"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 16 16"><path d="M8 1.5C6 4.6 3.6 7.2 3.6 9.9a4.4 4.4 0 0 0 8.8 0C12.4 7.2 10 4.6 8 1.5Z" fill="currentColor"/></symbol>
+  <symbol id="i-dry" viewBox="0 0 16 16"><path d="M8 1.5C6 4.6 3.6 7.2 3.6 9.9a4.4 4.4 0 0 0 8.8 0C12.4 7.2 10 4.6 8 1.5Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2.5 13.5 13.5 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-tent" viewBox="0 0 16 16"><path d="M8 2 1.5 14h13Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 7.5 5.6 14h4.8Z" fill="currentColor"/></symbol>
+  <symbol id="i-check" viewBox="0 0 16 16"><path d="m3 8.4 3.2 3.1L13 4.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <p class="eyebrow">Over the Hill · Хребет Вальхалла – Канада</p>
+      <h1>Фотоохота в Канаде</h1>
+      <p class="lede">Все 16 животных Канады за один заход: 14 точек на двух картах и один лагерь. Номера точек – это порядок маршрута; нажмите на точку, чтобы увидеть, кого там снимать, днём или ночью и в какую погоду.</p>
+    </div>
+    <div class="tally" aria-live="polite">
+      <span class="tally-num"><b id="tally-n">0</b> / 16</span>
+      <span class="tally-label">в компендиуме</span>
+      <div class="tally-bar"><i id="tally-bar"></i></div>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Карты маршрута" id="tabs"></nav>
+
+  <main class="board">
+    <section class="mapcol" aria-label="Карта маршрута">
+      <div class="map" id="map">
+        <svg id="svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Карта с маршрутом и точками">
+          <image id="map-img" x="0" y="0" width="2048" height="2048" preserveAspectRatio="none"></image>
+          <g id="g-radius"></g>
+          <g id="g-route"></g>
+          <g id="g-land"></g>
+          <g id="g-spawn"></g>
+          <g id="g-stops"></g>
+          <g id="g-label"></g>
+        </svg>
+        <div class="map-area-name" id="map-area-name"></div>
+        <div class="map-ctrl">
+          <button type="button" id="zoom-in" aria-label="Приблизить">+</button>
+          <button type="button" id="zoom-out" aria-label="Отдалить">−</button>
+          <button type="button" id="fit">Весь маршрут</button>
+        </div>
+      </div>
+      <div class="caption" id="caption" aria-live="polite"></div>
+      <div class="legend" aria-hidden="true">
+        <span><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="#e8590c" stroke="#fff" stroke-width="1.5"/></svg>днём</span>
+        <span><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="#4f46e5" stroke="#fff" stroke-width="1.5"/></svg>ночью</span>
+        <span><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="#0d9488" stroke="#fff" stroke-width="1.5"/></svg>портал</span>
+        <span><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="3.6" fill="#13201a" stroke="#fff" stroke-width="1.4"/></svg>точка спавна у остановки</span>
+        <span><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="4.2" fill="#fff" stroke="#13201a" stroke-width="1.6" stroke-dasharray="2 1.6"/></svg>запасная</span>
+        <span><svg viewBox="0 0 16 16"><rect x="3.5" y="3.5" width="9" height="9" rx="1.5" fill="#fff" stroke="#13201a" stroke-width="1.6"/></svg>хижина</span>
+      </div>
+      <p class="hint">Карту можно тянуть. Масштаб – кнопками, двойным нажатием, щипком или Ctrl + колесо.</p>
+    </section>
+
+    <section class="steps" aria-label="Точки маршрута">
+      <p class="area-lead" id="area-lead"></p>
+      <ol class="steplist" id="steps"></ol>
+    </section>
+  </main>
+
+  <section class="rules">
+    <div class="panel">
+      <h2>Как снимать</h2>
+      <ol id="rules"></ol>
+    </div>
+    <div class="panel">
+      <h2>Ачивки по пути</h2>
+      <ul class="ach-list" id="ach"></ul>
+    </div>
+  </section>
+
+  <footer>
+    <p>Точки спавна и условия появления – <a href="https://overthehilldb.com/animals" target="_blank" rel="noopener">overthehilldb.com</a> (данные из игры). Хижины, порталы, русские названия, часы дня и ночи, лагерь и радиус 200 м – из файлов игры. Расстояния – по прямой.</p>
+    <p>Неофициальный фанатский гайд. Over the Hill и карты местности – Funselektor Labs.</p>
+  </footer>
+</div>
+
+<script>
+const DATA = /*__DATA__*/null;
+
+(function () {
+  "use strict";
+  const PX = 2048 / 4000;
+  const toPx = (x, z) => [(x + 2000) * PX, (2000 - z) * PX];
+  const SP = DATA.species;
+  const TOTAL = Object.keys(SP).length;
+  const NS = "http://www.w3.org/2000/svg";
+  const STORE = "oth-safari-v1";
+  const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const $ = (id) => document.getElementById(id);
+  const svg = $("svg"), mapEl = $("map");
+  const gRadius = $("g-radius"), gRoute = $("g-route"), gLand = $("g-land"), gSpawn = $("g-spawn"), gStops = $("g-stops"), gLabel = $("g-label");
+
+  let got = new Set();
+  try { const raw = localStorage.getItem(STORE); if (raw) got = new Set(JSON.parse(raw)); } catch (e) { /* storage unavailable */ }
+  const save = () => { try { localStorage.setItem(STORE, JSON.stringify([...got])); } catch (e) { /* ignore */ } };
+
+  let areaIdx = 0, selN = null, view = null, anim = null;
+  const area = () => DATA.areas[areaIdx];
+
+  /* ---------- helpers ---------- */
+  function el(tag, attrs, parent) {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  function h(tag, cls, text) {
+    const n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  function icon(name) {
+    const s = document.createElementNS(NS, "svg");
+    s.setAttribute("viewBox", "0 0 16 16"); s.setAttribute("aria-hidden", "true");
+    const u = document.createElementNS(NS, "use"); u.setAttribute("href", "#i-" + name); s.appendChild(u);
+    return s;
+  }
+  function chip(cls, ic, text) {
+    const c = h("span", "chip " + (cls || ""));
+    if (ic) c.appendChild(icon(ic));
+    c.appendChild(document.createTextNode(text));
+    return c;
+  }
+  const dist = (a, b) => Math.hypot(a.x - b.x, a.z - b.z);
+  const plural = (n, one, few, many) => {
+    const m10 = n % 10, m100 = n % 100;
+    if (m10 === 1 && m100 !== 11) return one;
+    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+    return many;
+  };
+  function stopNeeds(stop) {
+    const t = stop.targets.map((k) => SP[k]);
+    if (!t.length) return { time: null, weather: null };
+    const day = t.some((s) => s.time === "day"), night = t.some((s) => s.time === "night");
+    const dry = t.some((s) => s.weather === "dry");
+    return { time: day ? "day" : night ? "night" : "any", weather: dry ? "dry" : "any" };
+  }
+  function timeChip(time) {
+    if (time === "day") return chip("day", "sun", "днём");
+    if (time === "night") return chip("night", "moon", "ночью");
+    return chip("", "any", "днём и ночью");
+  }
+  function weatherChip(w) {
+    return w === "dry" ? chip("", "dry", "без дождя") : chip("", "drop", "в дождь тоже");
+  }
+  function spawnsNear(stop, key) {
+    return DATA.spawns[area().id].filter((s) => s.s === key && dist(s, stop) <= 200);
+  }
+
+  /* ---------- tally ---------- */
+  function renderTally() {
+    const n = [...got].filter((k) => SP[k]).length;
+    $("tally-n").textContent = n;
+    $("tally-bar").style.width = (n / TOTAL * 100).toFixed(1) + "%";
+  }
+
+  /* ---------- tabs ---------- */
+  function renderTabs() {
+    const nav = $("tabs"); nav.textContent = "";
+    DATA.areas.forEach((a, i) => {
+      const b = h("button", "tab"); b.type = "button"; b.setAttribute("role", "tab"); b.id = "tab-" + a.slug;
+      b.setAttribute("aria-selected", i === areaIdx ? "true" : "false");
+      const species = new Set(a.stops.flatMap((s) => s.targets));
+      const first = a.stops[0].n, last = a.stops[a.stops.length - 1].n;
+      b.appendChild(h("span", "tab-n", String(i + 1)));
+      b.appendChild(h("span", "tab-name", a.ru));
+      b.appendChild(h("span", "tab-sub", species.size + " " + plural(species.size, "вид", "вида", "видов") + " · точки " + first + "–" + last));
+      b.addEventListener("click", () => { if (i !== areaIdx) { location.hash = a.slug; } });
+      nav.appendChild(b);
+    });
+  }
+
+  /* ---------- step list ---------- */
+  const PHASE = { day: "День", night: "Ночь, после лагеря", portal: "Портал" };
+  const PHASE_COLOR = { day: "var(--mk-day)", night: "var(--mk-night)", portal: "var(--mk-portal)" };
+
+  function renderSteps() {
+    const a = area();
+    $("area-lead").textContent = a.lead;
+    const ol = $("steps"); ol.textContent = "";
+    let prev = null;
+    a.stops.forEach((st, i) => {
+      if (st.phase !== prev) {
+        const group = a.stops.slice(i).filter((_, j, arr) => arr.slice(0, j + 1).every((x) => x.phase === st.phase));
+        const range = group.length > 1 ? "точки " + group[0].n + "–" + group[group.length - 1].n : "точка " + group[0].n;
+        const ph = h("li", "phase-head");
+        const dot = h("span", "dot"); dot.style.background = PHASE_COLOR[st.phase];
+        ph.appendChild(dot); ph.appendChild(document.createTextNode(PHASE[st.phase] + " · " + range));
+        ph.setAttribute("aria-hidden", "true");
+        ol.appendChild(ph);
+        prev = st.phase;
+      }
+      ol.appendChild(stepCard(st));
+    });
+  }
+
+  function stepCard(st) {
+    const li = h("li", "step" + (st.n === selN ? " sel" : "")); li.id = "step-" + st.n;
+    const head = h("button", "step-head"); head.type = "button";
+    head.setAttribute("aria-expanded", st.n === selN ? "true" : "false");
+    const badge = h("span", "badge " + st.phase, String(st.n));
+    head.appendChild(badge);
+    head.appendChild(h("span", "step-title", st.title));
+    const done = st.targets.length && st.targets.every((k) => got.has(k));
+    if (done) { const d = h("span", "step-done"); d.appendChild(icon("check")); d.title = "Все сняты"; head.appendChild(d); }
+    else if (st.targets.length) head.appendChild(h("span", "step-count", st.targets.filter((k) => got.has(k)).length + "/" + st.targets.length));
+    else head.appendChild(h("span", "step-count", ""));
+    const sub = h("span", "step-sub");
+    const need = stopNeeds(st);
+    if (st.phase === "portal") sub.appendChild(chip("portal", null, "портал"));
+    if (need.time) sub.appendChild(timeChip(need.time));
+    if (need.weather) sub.appendChild(weatherChip(need.weather));
+    if (st.camp) sub.appendChild(chip("camp", "tent", "лагерь"));
+    head.appendChild(sub);
+    head.addEventListener("click", () => select(st.n === selN ? null : st.n, { fly: true, from: "list" }));
+    li.appendChild(head);
+
+    const body = h("div", "step-body");
+    body.appendChild(h("p", null, st.text));
+    const keys = st.targets.concat(st.extra || []);
+    if (keys.length) {
+      const ul = h("ul", "animals");
+      keys.forEach((k) => {
+        const s = SP[k], isExtra = !st.targets.includes(k);
+        const row = h("li", "animal" + (got.has(k) ? " got" : "") + (isExtra ? " extra" : ""));
+        const id = "cb-" + st.n + "-" + k;
+        const cb = h("input"); cb.type = "checkbox"; cb.id = id; cb.checked = got.has(k);
+        cb.addEventListener("change", () => { cb.checked ? got.add(k) : got.delete(k); save(); renderTally(); renderSteps(); renderMap(); });
+        const lab = h("label"); lab.htmlFor = id; lab.textContent = s.ru + " ";
+        lab.appendChild(h("small", null, isExtra ? "· запасная точка" : "· " + s.en));
+        const near = spawnsNear(st, k).length;
+        const bits = [
+          s.rarity.toLowerCase(), s.cls,
+          s.time === "day" ? "только днём" : s.time === "night" ? "только ночью" : "днём и ночью",
+          s.weather === "dry" ? "без дождя" : "погода любая",
+          s.habitat, s.reward + " " + plural(s.reward, "камешек", "камешка", "камешков")
+        ];
+        if (s.spook) bits.push("пугается с " + s.spook + " м");
+        if (near) bits.push(near + " " + plural(near, "точка", "точки", "точек") + " в 200 м");
+        row.appendChild(cb); row.appendChild(lab); row.appendChild(h("span", "meta", bits.join(" · ")));
+        ul.appendChild(row);
+      });
+      body.appendChild(ul);
+    }
+    const note = (cls, title, text) => { const p = h("p", "note " + cls); p.appendChild(h("b", null, title)); p.appendChild(document.createTextNode(text)); body.appendChild(p); };
+    if (st.tip) note("tip", "Совет", st.tip);
+    if (st.backup) note("", "Если не вышел", st.backup);
+    if (st.ach) note("ach", "Ачивки", st.ach.join("; "));
+    li.appendChild(body);
+    return li;
+  }
+
+  /* ---------- caption under the map ---------- */
+  function renderCaption() {
+    const c = $("caption"); c.textContent = "";
+    const st = area().stops.find((s) => s.n === selN);
+    if (!st) {
+      c.appendChild(h("span", "cap-title", area().ru));
+      c.appendChild(h("span", "step-count", "Нажмите на точку маршрута"));
+      return;
+    }
+    c.appendChild(h("span", "badge sm " + st.phase, String(st.n)));
+    c.appendChild(h("span", "cap-title", st.title));
+    const need = stopNeeds(st), chips = h("span", "chips");
+    if (st.phase === "portal") chips.appendChild(chip("portal", null, "портал"));
+    if (need.time) chips.appendChild(timeChip(need.time));
+    if (need.weather) chips.appendChild(weatherChip(need.weather));
+    if (st.camp) chips.appendChild(chip("camp", "tent", "лагерь"));
+    c.appendChild(chips);
+    if (st.targets.length) c.appendChild(h("span", "cap-sp", st.targets.map((k) => SP[k].ru).join(", ")));
+    const more = h("button", "cap-more", "Подробнее ↓"); more.type = "button";
+    more.addEventListener("click", () => { const card = $("step-" + st.n); if (card) card.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" }); });
+    c.appendChild(more);
+  }
+
+  /* ---------- map view ---------- */
+  function boxFor(x0, z0, x1, z1) {
+    const [ax, ay] = toPx(x0, z1), [bx, by] = toPx(x1, z0);
+    return { x: ax, y: ay, w: bx - ax, h: by - ay };
+  }
+  function fitAspect(b) {
+    const cw = mapEl.clientWidth || 800, ch = mapEl.clientHeight || 600, r = ch / cw;
+    let { x, y, w, h: hh } = b;
+    if (hh / w > r) { const nw = hh / r; x -= (nw - w) / 2; w = nw; } else { const nh = w * r; y -= (nh - hh) / 2; hh = nh; }
+    return clampView({ x, y, w, h: hh });
+  }
+  function clampView(v) {
+    const cw = mapEl.clientWidth || 800, ch = mapEl.clientHeight || 600, r = ch / cw;
+    let w = Math.min(Math.max(v.w, 180), 2048 / Math.max(1, r) * 1.0);
+    if (w * r > 2048) w = 2048 / r;
+    const hh = w * r;
+    let cx = v.x + v.w / 2, cy = v.y + v.h / 2;
+    cx = Math.min(Math.max(cx, w / 2), 2048 - w / 2);
+    cy = Math.min(Math.max(cy, hh / 2), 2048 - hh / 2);
+    if (w > 2048) cx = 1024;
+    return { x: cx - w / 2, y: cy - hh / 2, w, h: hh };
+  }
+  const routeView = () => { const v = area().view; return fitAspect(boxFor(v[0], v[1], v[2], v[3])); };
+  function applyView() { svg.setAttribute("viewBox", view.x + " " + view.y + " " + view.w + " " + view.h); renderMap(); }
+  function flyTo(target) {
+    if (anim) cancelAnimationFrame(anim);
+    target = clampView(target);
+    if (reduceMotion || !view) { view = target; applyView(); return; }
+    const from = { ...view }, t0 = performance.now(), dur = 380;
+    const step = (t) => {
+      const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+      view = { x: from.x + (target.x - from.x) * e, y: from.y + (target.y - from.y) * e, w: from.w + (target.w - from.w) * e, h: from.h + (target.h - from.h) * e };
+      applyView();
+      if (k < 1) anim = requestAnimationFrame(step); else anim = null;
+    };
+    anim = requestAnimationFrame(step);
+  }
+  function zoomAt(factor, px, py) {
+    const nw = view.w / factor, nh = view.h / factor;
+    const fx = (px - view.x) / view.w, fy = (py - view.y) / view.h;
+    view = clampView({ x: px - fx * nw, y: py - fy * nh, w: nw, h: nh });
+    applyView();
+  }
+  function clientToMap(cx, cy) {
+    const r = svg.getBoundingClientRect();
+    return [view.x + (cx - r.left) / r.width * view.w, view.y + (cy - r.top) / r.height * view.h];
+  }
+
+  /* ---------- map drawing ---------- */
+  function renderMap() {
+    if (!view) return;
+    const s = view.w / (svg.clientWidth || 800);
+    const a = area();
+    [gRadius, gRoute, gLand, gSpawn, gStops, gLabel].forEach((g) => { g.textContent = ""; });
+    const pos = (o) => toPx(o.x, o.z);
+
+    // cabins & portals that are not stops
+    DATA.landmarks[a.id].forEach((lm) => {
+      if (lm.kind === "merchant") return;
+      const [x, y] = pos(lm);
+      const isStop = a.stops.some((st) => dist(st, lm) < 30);
+      if (isStop) return;
+      if (lm.kind === "cabin") {
+        const sz = 9 * s;
+        el("rect", { x: x - sz / 2, y: y - sz / 2, width: sz, height: sz, rx: 1.6 * s, fill: "var(--mk-halo)", stroke: "var(--mk-ink)", "stroke-width": 1.6 * s }, gLand);
+      } else {
+        el("circle", { cx: x, cy: y, r: 6 * s, fill: "var(--mk-halo)", stroke: "var(--mk-portal)", "stroke-width": 2.4 * s }, gLand);
+      }
+      // place the name right of the icon, else left; drop it when both sides would cover a stop marker
+      const tw = lm.ru.length * 6.6 * s, th = 14 * s;
+      const hits = (bx) => a.stops.some((st) => {
+        const [qx, qy] = pos(st), rr = 16 * s;
+        return qx + rr > bx && qx - rr < bx + tw && qy + rr > y - th && qy - rr < y + th / 2;
+      });
+      let lx = x + 8 * s, anchor = "start";
+      if (hits(lx)) { lx = x - 8 * s; anchor = "end"; if (hits(lx - tw)) return; }
+      const t = el("text", { x: lx, y: y + 4 * s, "text-anchor": anchor, "font-size": 11.5 * s, "font-family": "Inter, system-ui, sans-serif", "font-weight": 600, fill: "var(--mk-ink)", stroke: "var(--mk-halo)", "stroke-width": 3.2 * s, "paint-order": "stroke", "stroke-linejoin": "round" }, gLand);
+      t.textContent = lm.ru;
+    });
+
+    // route
+    const stops = a.stops, pts = stops.map(pos);
+    const segColor = (i) => { const dst = stops[i + 1]; const ph = dst.phase === "portal" ? stops[i].phase : dst.phase; return ph === "night" ? "var(--mk-night)" : "var(--mk-day)"; };
+    for (let i = 0; i < pts.length - 1; i++) {
+      el("line", { x1: pts[i][0], y1: pts[i][1], x2: pts[i + 1][0], y2: pts[i + 1][1], stroke: "var(--mk-halo)", "stroke-width": 10 * s, "stroke-linecap": "round", opacity: 0.95 }, gRoute);
+    }
+    for (let i = 0; i < pts.length - 1; i++) {
+      const [x1, y1] = pts[i], [x2, y2] = pts[i + 1];
+      el("line", { x1, y1, x2, y2, stroke: segColor(i), "stroke-width": 5 * s, "stroke-linecap": "round" }, gRoute);
+      const len = Math.hypot(x2 - x1, y2 - y1);
+      if (len / s > 70) {
+        const mx = (x1 + x2) / 2, my = (y1 + y2) / 2, ang = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI, k = 6 * s;
+        el("path", { d: "M" + (-k) + " " + (-k) + " L" + k + " 0 L" + (-k) + " " + k, fill: "none", stroke: "var(--mk-halo)", "stroke-width": 2.6 * s, "stroke-linecap": "round", "stroke-linejoin": "round", transform: "translate(" + mx + " " + my + ") rotate(" + ang + ")" }, gRoute);
+      }
+    }
+
+    // selected stop: 200 m ring + spawns
+    const sel = stops.find((st) => st.n === selN);
+    if (sel) {
+      const [sx, sy] = pos(sel);
+      el("circle", { cx: sx, cy: sy, r: 200 * PX, fill: "var(--mk-halo)", "fill-opacity": 0.22, stroke: "var(--mk-ink)", "stroke-width": 1.4 * s, "stroke-dasharray": (5 * s) + " " + (4 * s), opacity: 0.8 }, gRadius);
+      const keys = sel.targets.concat(sel.extra || []);
+      const count = {};
+      DATA.spawns[a.id].forEach((sp) => { count[sp.s] = (count[sp.s] || 0) + 1; });
+      DATA.spawns[a.id].forEach((sp) => {
+        if (!keys.includes(sp.s)) return;
+        const [x, y] = pos(sp), near = dist(sp, sel) <= 200;
+        // common species have dozens of points: show their spare points only when the stop names a fallback
+        if (!near && count[sp.s] > 12 && !sel.backup) return;
+        const c = near
+          ? el("circle", { cx: x, cy: y, r: 4.2 * s, fill: "var(--mk-ink)", stroke: "var(--mk-halo)", "stroke-width": 1.6 * s }, gSpawn)
+          : el("circle", { cx: x, cy: y, r: 5 * s, fill: "var(--mk-halo)", stroke: "var(--mk-ink)", "stroke-width": 1.8 * s, "stroke-dasharray": (2.4 * s) + " " + (1.8 * s) }, gSpawn);
+        const tt = el("title", {}, c); tt.textContent = SP[sp.s].ru + (near ? " – у этой остановки" : " – запасная точка") + (sp.air ? ", в полёте" : "");
+      });
+    }
+
+    // stop markers
+    stops.forEach((st) => {
+      const [x, y] = pos(st), isSel = st.n === selN;
+      const r = (isSel ? 16 : 13) * s;
+      const g = el("g", { class: "stop", tabindex: 0, role: "button", "aria-label": "Точка " + st.n + ": " + st.title, style: "cursor:pointer" }, gStops);
+      if (isSel) el("circle", { cx: x, cy: y, r: r + 5 * s, fill: "none", stroke: "var(--mk-ink)", "stroke-width": 2.2 * s }, g);
+      const fill = st.phase === "night" ? "var(--mk-night)" : st.phase === "portal" ? "var(--mk-portal)" : "var(--mk-day)";
+      el("circle", { cx: x, cy: y, r, fill, stroke: "var(--mk-halo)", "stroke-width": 2.6 * s }, g);
+      const t = el("text", { x, y: y + (isSel ? 6.2 : 5) * s, "text-anchor": "middle", "font-size": (isSel ? 18 : 15) * s, "font-family": "'Barlow Condensed', 'Arial Narrow', sans-serif", "font-weight": 700, fill: "#ffffff" }, g);
+      t.textContent = st.n;
+      const done = st.targets.length && st.targets.every((k) => got.has(k));
+      if (done) {
+        const bx = x + r * 0.75, by = y - r * 0.75;
+        el("circle", { cx: bx, cy: by, r: 6.5 * s, fill: "var(--ok)", stroke: "var(--mk-halo)", "stroke-width": 1.6 * s }, g);
+        el("path", { d: "M" + (bx - 3 * s) + " " + by + " l" + (2.2 * s) + " " + (2.2 * s) + " l" + (4 * s) + " " + (-4.4 * s), fill: "none", stroke: "#fff", "stroke-width": 1.8 * s, "stroke-linecap": "round", "stroke-linejoin": "round" }, g);
+      }
+      if (st.camp) {
+        const bx = x - r - 13 * s, by = y - r * 0.2;
+        el("circle", { cx: bx, cy: by, r: 10 * s, fill: "var(--mk-ink)", stroke: "var(--mk-halo)", "stroke-width": 1.6 * s }, g);
+        el("path", { d: "M" + bx + " " + (by - 5.5 * s) + " L" + (bx - 5.5 * s) + " " + (by + 4.5 * s) + " L" + (bx + 5.5 * s) + " " + (by + 4.5 * s) + " Z", fill: "none", stroke: "#fff", "stroke-width": 1.5 * s, "stroke-linejoin": "round" }, g);
+      }
+      const act = (e) => { e.stopPropagation(); select(st.n === selN ? null : st.n, { fly: false, from: "map" }); };
+      g.addEventListener("click", act);
+      g.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); act(e); } });
+    });
+
+    // label for the selected stop
+    if (sel) {
+      const [x, y] = pos(sel);
+      const g = el("g", { "pointer-events": "none" }, gLabel);
+      const tx = el("text", { x: x + 24 * s, y: y + 5.5 * s, "font-size": 15 * s, "font-family": "Inter, system-ui, sans-serif", "font-weight": 600, fill: "var(--mk-ink)" }, g);
+      tx.textContent = sel.n + " · " + sel.title;
+      let w = 0; try { w = tx.getComputedTextLength(); } catch (e) { w = sel.title.length * 8 * s; }
+      const pad = 7 * s, bh = 24 * s, bw = w + 2 * pad, gap = 24 * s;
+      // try right, left, above, below; keep the box inside the view and off the other markers and route vertices
+      const m = 6 * s;
+      const inView = ([bx, by]) => [
+        Math.min(Math.max(bx, view.x + m), view.x + view.w - bw - m),
+        Math.min(Math.max(by, view.y + m), view.y + view.h - bh - m)
+      ];
+      const cands = [[x + gap - pad, y - bh / 2], [x + gap * 0.4, y - gap - bh], [x + gap * 0.4, y + gap], [x - gap - bw + pad, y - bh / 2], [x - bw / 2, y - gap - bh], [x - bw / 2, y + gap]].map(inView);
+      const others = stops.filter((st) => st.n !== sel.n).map(pos);
+      const score = ([bx, by]) => {
+        let p = 0;
+        const rr0 = 20 * s;
+        if (x + rr0 > bx && x - rr0 < bx + bw && y + rr0 > by && y - rr0 < by + bh) p += 50;
+        others.forEach(([qx, qy]) => { const rr = 16 * s; if (qx + rr > bx && qx - rr < bx + bw && qy + rr > by && qy - rr < by + bh) p += 10; });
+        for (let i = 0; i < pts.length - 1; i++) {
+          for (let k = 1; k < 8; k++) {
+            const px = pts[i][0] + (pts[i + 1][0] - pts[i][0]) * k / 8, py = pts[i][1] + (pts[i + 1][1] - pts[i][1]) * k / 8;
+            if (px > bx && px < bx + bw && py > by && py < by + bh) p += 1;
+          }
+        }
+        return p;
+      };
+      let best = cands[0], bestScore = Infinity;
+      cands.forEach((c) => { const sc = score(c); if (sc < bestScore) { bestScore = sc; best = c; } });
+      tx.setAttribute("x", best[0] + pad); tx.setAttribute("y", best[1] + bh / 2 + 5.5 * s);
+      const rect = el("rect", { x: best[0], y: best[1], width: bw, height: bh, rx: 6 * s, fill: "var(--mk-halo)", stroke: "var(--mk-ink)", "stroke-width": 1.2 * s, opacity: 0.96 });
+      g.insertBefore(rect, tx);
+    }
+  }
+
+  /* ---------- selection & area ---------- */
+  function select(n, opt) {
+    selN = n;
+    renderSteps(); renderCaption();
+    const st = area().stops.find((s) => s.n === n);
+    if (st && opt && opt.fly) {
+      const [x, y] = toPx(st.x, st.z), rv = routeView();
+      const w = Math.min(view.w, rv.w * 0.75), hh = w * (view.h / view.w);
+      flyTo({ x: x - w / 2, y: y - hh / 2, w, h: hh });
+    } else {
+      renderMap();
+    }
+    if (st && opt && opt.from === "map" && window.matchMedia("(min-width: 901px)").matches) {
+      const card = $("step-" + n); if (card) card.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "nearest" });
+    }
+  }
+  function setArea(i, keepSel) {
+    areaIdx = i;
+    $("map-img").setAttribute("href", area().map);
+    $("map-area-name").textContent = area().ru;
+    if (!keepSel) selN = area().stops.find((s) => s.targets.length) ? area().stops[0].n : null;
+    renderTabs(); renderSteps(); renderCaption();
+    view = routeView(); applyView();
+  }
+  function fromHash() {
+    const slug = (location.hash || "").replace("#", "");
+    const i = DATA.areas.findIndex((a) => a.slug === slug);
+    return i >= 0 ? i : 0;
+  }
+
+  /* ---------- pointer: pan, pinch, wheel ---------- */
+  const ptrs = new Map();
+  let drag = null, pinch = null, suppressClick = false;
+  svg.addEventListener("pointerdown", (e) => {
+    if (e.button !== undefined && e.button !== 0) return;
+    ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (ptrs.size === 1) drag = { x: e.clientX, y: e.clientY, v: { ...view }, active: false, id: e.pointerId };
+    if (ptrs.size === 2) {
+      const [p, q] = [...ptrs.values()];
+      pinch = { d: Math.hypot(p.x - q.x, p.y - q.y), v: { ...view }, mid: clientToMap((p.x + q.x) / 2, (p.y + q.y) / 2) };
+      drag = null;
+      try { svg.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+    }
+  });
+  svg.addEventListener("pointermove", (e) => {
+    if (!ptrs.has(e.pointerId)) return;
+    ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pinch && ptrs.size >= 2) {
+      const [p, q] = [...ptrs.values()];
+      const d = Math.hypot(p.x - q.x, p.y - q.y);
+      const f = d / Math.max(1, pinch.d), v = pinch.v;
+      const nw = v.w / f, nh = v.h / f, fx = (pinch.mid[0] - v.x) / v.w, fy = (pinch.mid[1] - v.y) / v.h;
+      view = clampView({ x: pinch.mid[0] - fx * nw, y: pinch.mid[1] - fy * nh, w: nw, h: nh });
+      applyView(); suppressClick = true;
+      return;
+    }
+    if (!drag) return;
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    if (!drag.active && Math.hypot(dx, dy) > 5) {
+      drag.active = true; svg.classList.add("dragging");
+      try { svg.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+    }
+    if (drag.active) {
+      const r = svg.getBoundingClientRect(), k = drag.v.w / r.width;
+      view = clampView({ x: drag.v.x - dx * k, y: drag.v.y - dy * k, w: drag.v.w, h: drag.v.h });
+      if (anim) { cancelAnimationFrame(anim); anim = null; }
+      applyView();
+    }
+  });
+  const endPtr = (e) => {
+    if (drag && drag.active) suppressClick = true;
+    ptrs.delete(e.pointerId);
+    if (ptrs.size < 2) pinch = null;
+    if (ptrs.size === 0) { drag = null; svg.classList.remove("dragging"); }
+  };
+  svg.addEventListener("pointerup", endPtr);
+  svg.addEventListener("pointercancel", endPtr);
+  svg.addEventListener("click", (e) => { if (suppressClick) { e.stopPropagation(); e.preventDefault(); suppressClick = false; } }, true);
+  svg.addEventListener("dblclick", (e) => { const [x, y] = clientToMap(e.clientX, e.clientY); zoomAt(1.8, x, y); });
+  svg.addEventListener("wheel", (e) => {
+    if (!(e.ctrlKey || e.metaKey)) return;
+    e.preventDefault();
+    const [x, y] = clientToMap(e.clientX, e.clientY);
+    zoomAt(Math.exp(-e.deltaY * 0.0022), x, y);
+  }, { passive: false });
+  $("zoom-in").addEventListener("click", () => zoomAt(1.6, view.x + view.w / 2, view.y + view.h / 2));
+  $("zoom-out").addEventListener("click", () => zoomAt(1 / 1.6, view.x + view.w / 2, view.y + view.h / 2));
+  $("fit").addEventListener("click", () => flyTo(routeView()));
+
+  /* ---------- static panels ---------- */
+  DATA.rules.forEach((r) => $("rules").appendChild(h("li", null, r)));
+  const achRows = [];
+  DATA.areas.forEach((a) => a.stops.forEach((st) => (st.ach || []).forEach((t) => achRows.push([st.n, t]))));
+  achRows.forEach(([n, t]) => { const li = h("li"); li.appendChild(document.createTextNode(t + " ")); li.appendChild(h("span", null, "– точка " + n)); $("ach").appendChild(li); });
+  DATA.extraAch.forEach((t) => $("ach").appendChild(h("li", null, t)));
+
+  /* ---------- boot ---------- */
+  renderTally();
+  setArea(fromHash());
+  window.addEventListener("hashchange", () => { const i = fromHash(); if (i !== areaIdx) setArea(i); });
+  if (window.ResizeObserver) {
+    let last = mapEl.clientWidth + "x" + mapEl.clientHeight;
+    new ResizeObserver(() => {
+      const now = mapEl.clientWidth + "x" + mapEl.clientHeight;
+      if (now === last || !view) return;
+      last = now;
+      const cx = view.x + view.w / 2, cy = view.y + view.h / 2;
+      const r = mapEl.clientHeight / Math.max(1, mapEl.clientWidth);
+      view = clampView({ x: cx - view.w / 2, y: cy - view.w * r / 2, w: view.w, h: view.w * r });
+      applyView();
+    }).observe(mapEl);
+  }
+})();
+</script>
