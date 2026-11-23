@@ -83,6 +83,21 @@ h1 { font-size: clamp(34px, 5vw, 54px); line-height: 0.95; text-transform: upper
 .tally-bar { height: 6px; border-radius: 99px; background: var(--line); overflow: hidden; }
 .tally-bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .3s ease; }
 
+/* Top bar: region line on the left, language switch pinned to the right */
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.topbar .eyebrow { min-width: 0; }
+.lang {
+  flex: none; display: inline-flex; align-items: center; gap: 2px; padding: 3px; border-radius: 99px;
+  background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow);
+}
+.lang > svg { width: 16px; height: 16px; margin: 0 3px 0 7px; color: var(--muted); }
+.lang button {
+  min-width: 46px; height: 34px; padding: 0 12px; border: 0; border-radius: 99px; background: none; cursor: pointer;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.06em; color: var(--muted);
+}
+.lang button:hover { color: var(--ink); }
+.lang button[aria-pressed="true"] { background: var(--ink); color: var(--surface); }
+
 /* Tabs */
 .tabs { display: flex; flex-wrap: wrap; gap: 8px; }
 .tab {
@@ -229,29 +244,38 @@ footer a { color: inherit; }
   <symbol id="i-drop" viewBox="0 0 16 16"><path d="M8 1.5C6 4.6 3.6 7.2 3.6 9.9a4.4 4.4 0 0 0 8.8 0C12.4 7.2 10 4.6 8 1.5Z" fill="currentColor"/></symbol>
   <symbol id="i-dry" viewBox="0 0 16 16"><path d="M8 1.5C6 4.6 3.6 7.2 3.6 9.9a4.4 4.4 0 0 0 8.8 0C12.4 7.2 10 4.6 8 1.5Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2.5 13.5 13.5 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
   <symbol id="i-tent" viewBox="0 0 16 16"><path d="M8 2 1.5 14h13Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 7.5 5.6 14h4.8Z" fill="currentColor"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6.3"/><path d="M1.9 8h12.2M8 1.7c-2 2.2-2 10.4 0 12.6M8 1.7c2 2.2 2 10.4 0 12.6"/></g></symbol>
   <symbol id="i-check" viewBox="0 0 16 16"><path d="m3 8.4 3.2 3.1L13 4.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 
 <div class="wrap">
+  <div class="topbar">
+    <p class="eyebrow" data-i18n="eyebrow">Over the Hill · Хребет Вальхалла – Канада</p>
+    <div class="lang" role="group" aria-label="Язык / Language">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-globe"/></svg>
+      <button type="button" data-lang="ru" lang="ru" title="Русский" aria-pressed="true">RU</button>
+      <button type="button" data-lang="en" lang="en" title="English" aria-pressed="false">EN</button>
+    </div>
+  </div>
+
   <header class="top">
     <div class="brand">
-      <p class="eyebrow">Over the Hill · Хребет Вальхалла – Канада</p>
-      <h1>Фотоохота в Канаде</h1>
-      <p class="lede">Все 16 животных Канады за один заход: 14 точек на двух картах и один лагерь. Номера точек – это порядок маршрута; нажмите на точку, чтобы увидеть, кого там снимать, днём или ночью и в какую погоду.</p>
+      <h1 data-i18n="title">Фотоохота в Канаде</h1>
+      <p class="lede" data-i18n="lede">Все 16 животных Канады за один заход: 14 точек на двух картах и один лагерь. Номера точек – это порядок маршрута; нажмите на точку, чтобы увидеть, кого там снимать, днём или ночью и в какую погоду.</p>
     </div>
     <div class="tally" aria-live="polite">
       <span class="tally-num"><b id="tally-n">0</b> / 16</span>
-      <span class="tally-label">в компендиуме</span>
+      <span class="tally-label" data-i18n="tally">в компендиуме</span>
       <div class="tally-bar"><i id="tally-bar"></i></div>
     </div>
   </header>
 
-  <nav class="tabs" role="tablist" aria-label="Карты маршрута" id="tabs"></nav>
+  <nav class="tabs" role="tablist" aria-label="Карты маршрута" data-i18n-aria="tabsLabel" id="tabs"></nav>
 
   <main class="board">
-    <section class="mapcol" aria-label="Карта маршрута">
+    <section class="mapcol" aria-label="Карта маршрута" data-i18n-aria="mapLabel">
       <div class="map" id="map">
-        <svg id="svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Карта с маршрутом и точками">
+        <svg id="svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Карта с маршрутом и точками" data-i18n-aria="svgLabel">
           <image id="map-img" x="0" y="0" width="2048" height="2048" preserveAspectRatio="none"></image>
           <g id="g-radius"></g>
           <g id="g-route"></g>
@@ -262,24 +286,24 @@ footer a { color: inherit; }
         </svg>
         <div class="map-area-name" id="map-area-name"></div>
         <div class="map-ctrl">
-          <button type="button" id="zoom-in" aria-label="Приблизить">+</button>
-          <button type="button" id="zoom-out" aria-label="Отдалить">−</button>
-          <button type="button" id="fit">Весь маршрут</button>
+          <button type="button" id="zoom-in" aria-label="Приблизить" data-i18n-aria="zoomIn">+</button>
+          <button type="button" id="zoom-out" aria-label="Отдалить" data-i18n-aria="zoomOut">−</button>
+          <button type="button" id="fit" data-i18n="fit">Весь маршрут</button>
         </div>
       </div>
       <div class="caption" id="caption" aria-live="polite"></div>
       <div class="legend" aria-hidden="true">
-        <span><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="#e8590c" stroke="#fff" stroke-width="1.5"/></svg>днём</span>
-        <span><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="#4f46e5" stroke="#fff" stroke-width="1.5"/></svg>ночью</span>
-        <span><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="#0d9488" stroke="#fff" stroke-width="1.5"/></svg>портал</span>
-        <span><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="3.6" fill="#13201a" stroke="#fff" stroke-width="1.4"/></svg>точка спавна у остановки</span>
-        <span><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="4.2" fill="#fff" stroke="#13201a" stroke-width="1.6" stroke-dasharray="2 1.6"/></svg>запасная</span>
-        <span><svg viewBox="0 0 16 16"><rect x="3.5" y="3.5" width="9" height="9" rx="1.5" fill="#fff" stroke="#13201a" stroke-width="1.6"/></svg>хижина</span>
+        <span><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="#e8590c" stroke="#fff" stroke-width="1.5"/></svg><span data-i18n="legendDay">днём</span></span>
+        <span><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="#4f46e5" stroke="#fff" stroke-width="1.5"/></svg><span data-i18n="legendNight">ночью</span></span>
+        <span><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="#0d9488" stroke="#fff" stroke-width="1.5"/></svg><span data-i18n="legendPortal">портал</span></span>
+        <span><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="3.6" fill="#13201a" stroke="#fff" stroke-width="1.4"/></svg><span data-i18n="legendSpawn">точка спавна у остановки</span></span>
+        <span><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="4.2" fill="#fff" stroke="#13201a" stroke-width="1.6" stroke-dasharray="2 1.6"/></svg><span data-i18n="legendBackup">запасная</span></span>
+        <span><svg viewBox="0 0 16 16"><rect x="3.5" y="3.5" width="9" height="9" rx="1.5" fill="#fff" stroke="#13201a" stroke-width="1.6"/></svg><span data-i18n="legendCabin">хижина</span></span>
       </div>
-      <p class="hint">Карту можно тянуть. Масштаб – кнопками, двойным нажатием, щипком или Ctrl + колесо.</p>
+      <p class="hint" data-i18n="hint">Карту можно тянуть. Масштаб – кнопками, двойным нажатием, щипком или Ctrl + колесо.</p>
     </section>
 
-    <section class="steps" aria-label="Точки маршрута">
+    <section class="steps" aria-label="Точки маршрута" data-i18n-aria="stepsLabel">
       <p class="area-lead" id="area-lead"></p>
       <ol class="steplist" id="steps"></ol>
     </section>
@@ -287,18 +311,18 @@ footer a { color: inherit; }
 
   <section class="rules">
     <div class="panel">
-      <h2>Как снимать</h2>
+      <h2 data-i18n="rulesTitle">Как снимать</h2>
       <ol id="rules"></ol>
     </div>
     <div class="panel">
-      <h2>Ачивки по пути</h2>
+      <h2 data-i18n="achTitle">Ачивки по пути</h2>
       <ul class="ach-list" id="ach"></ul>
     </div>
   </section>
 
   <footer>
-    <p>Точки спавна и условия появления – <a href="https://overthehilldb.com/animals" target="_blank" rel="noopener">overthehilldb.com</a> (данные из игры). Хижины, порталы, русские названия, часы дня и ночи, лагерь и радиус 200 м – из файлов игры. Расстояния – по прямой.</p>
-    <p>Неофициальный фанатский гайд. Over the Hill и карты местности – Funselektor Labs.</p>
+    <p data-i18n-html="foot1">Точки спавна и условия появления – <a href="https://overthehilldb.com/animals" target="_blank" rel="noopener">overthehilldb.com</a> (данные из игры). Хижины, порталы, русские названия, часы дня и ночи, лагерь и радиус 200 м – из файлов игры. Расстояния – по прямой.</p>
+    <p data-i18n="foot2">Неофициальный фанатский гайд. Over the Hill и карты местности – Funselektor Labs.</p>
   </footer>
 </div>
 
@@ -314,6 +338,83 @@ const DATA = /*__DATA__*/null;
   const NS = "http://www.w3.org/2000/svg";
   const STORE = "oth-safari-v1";
   const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- language: ?lang= in the link, else the saved choice, else the browser language ---------- */
+  const LANG_STORE = "oth-safari-lang";
+  const LANGS = ["ru", "en"];
+  const I18N = {
+    ru: {
+      title: "Фотоохота в Канаде",
+      eyebrow: "Over the Hill · Хребет Вальхалла – Канада",
+      lede: "Все 16 животных Канады за один заход: 14 точек на двух картах и один лагерь. Номера точек – это порядок маршрута; нажмите на точку, чтобы увидеть, кого там снимать, днём или ночью и в какую погоду.",
+      tally: "в компендиуме",
+      tabsLabel: "Карты маршрута", mapLabel: "Карта маршрута", svgLabel: "Карта с маршрутом и точками", stepsLabel: "Точки маршрута",
+      zoomIn: "Приблизить", zoomOut: "Отдалить", fit: "Весь маршрут",
+      legendDay: "днём", legendNight: "ночью", legendPortal: "портал", legendSpawn: "точка спавна у остановки", legendBackup: "запасная", legendCabin: "хижина",
+      hint: "Карту можно тянуть. Масштаб – кнопками, двойным нажатием, щипком или Ctrl + колесо.",
+      rulesTitle: "Как снимать", achTitle: "Ачивки по пути",
+      foot1: 'Точки спавна и условия появления – <a href="https://overthehilldb.com/animals" target="_blank" rel="noopener">overthehilldb.com</a> (данные из игры). Хижины, порталы, русские названия, часы дня и ночи, лагерь и радиус 200 м – из файлов игры. Расстояния – по прямой.',
+      foot2: "Неофициальный фанатский гайд. Over the Hill и карты местности – Funselektor Labs.",
+      species: ["вид", "вида", "видов"], stops: "точки", stop: "точка",
+      phaseDay: "День", phaseNight: "Ночь, после лагеря", phasePortal: "Портал",
+      allShot: "Все сняты", portal: "портал", camp: "лагерь",
+      chipDay: "днём", chipNight: "ночью", chipAny: "днём и ночью", chipDry: "без дождя", chipWet: "в дождь тоже",
+      backupSpot: "запасная точка",
+      onlyDay: "только днём", onlyNight: "только ночью", dayNight: "днём и ночью", dry: "без дождя", anyWeather: "погода любая",
+      pebbles: ["камешек", "камешка", "камешков"], spook: "пугается с {n} м", spots: ["точка", "точки", "точек"], within: "в 200 м",
+      tip: "Совет", ifNot: "Если не вышел", ach: "Ачивки",
+      tapStop: "Нажмите на точку маршрута", more: "Подробнее ↓",
+      atStop: "у этой остановки", spare: "запасная точка", inFlight: "в полёте",
+      stopAria: "Точка {n}: {title}"
+    },
+    en: {
+      title: "Canada Photo Safari",
+      eyebrow: "Over the Hill · The Valhallas – Canada",
+      lede: "All 16 animals of Canada in one run: 14 stops on two maps and a single camp. Stop numbers are the route order; tap a stop to see what to shoot there, by day or by night, and in what weather.",
+      tally: "in the compendium",
+      tabsLabel: "Route maps", mapLabel: "Route map", svgLabel: "Map with the route and its stops", stepsLabel: "Route stops",
+      zoomIn: "Zoom in", zoomOut: "Zoom out", fit: "Whole route",
+      legendDay: "day", legendNight: "night", legendPortal: "portal", legendSpawn: "spawn point at the stop", legendBackup: "backup", legendCabin: "cabin",
+      hint: "Drag to move the map. Zoom with the buttons, a double tap, a pinch or Ctrl + wheel.",
+      rulesTitle: "How to shoot", achTitle: "Achievements on the way",
+      foot1: 'Spawn points and spawn conditions – <a href="https://overthehilldb.com/animals" target="_blank" rel="noopener">overthehilldb.com</a> (game data). Cabins, portals, names, day and night hours, camping and the 200 m radius – from the game files. Distances are in a straight line.',
+      foot2: "Unofficial fan guide. Over the Hill and the terrain maps – Funselektor Labs.",
+      species: ["species", "species"], stops: "stops", stop: "stop",
+      phaseDay: "Day", phaseNight: "Night, after camp", phasePortal: "Portal",
+      allShot: "All photographed", portal: "portal", camp: "camp",
+      chipDay: "day", chipNight: "night", chipAny: "day or night", chipDry: "no rain", chipWet: "rain is fine",
+      backupSpot: "backup spot",
+      onlyDay: "day only", onlyNight: "night only", dayNight: "day or night", dry: "no rain", anyWeather: "any weather",
+      pebbles: ["pebble", "pebbles"], spook: "spooks at {n} m", spots: ["spot", "spots"], within: "within 200 m",
+      tip: "Tip", ifNot: "If it does not show up", ach: "Achievements",
+      tapStop: "Tap a stop on the route", more: "Details ↓",
+      atStop: "at this stop", spare: "backup spot", inFlight: "in flight",
+      stopAria: "Stop {n}: {title}"
+    }
+  };
+  function initialLang() {
+    const q = new URLSearchParams(location.search).get("lang");
+    if (LANGS.includes(q)) return q;
+    try { const s = localStorage.getItem(LANG_STORE); if (LANGS.includes(s)) return s; } catch (e) { /* storage unavailable */ }
+    const prefs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "ru"];
+    return prefs.some((l) => /^(ru|uk|be|kk)\b/i.test(l)) ? "ru" : "en";
+  }
+  let lang = initialLang();
+  // UI string; {name} placeholders are filled from vars
+  const t = (key, vars) => {
+    let s = I18N[lang][key];
+    if (s == null) s = I18N.ru[key];
+    if (s == null) return key;
+    return vars && typeof s === "string" ? s.replace(/\{(\w+)\}/g, (_, v) => vars[v]) : s;
+  };
+  // data text: {ru, en} objects, also species, areas and landmarks, which carry both names
+  const tx = (o) => (o == null ? "" : typeof o === "string" ? o : o[lang] || o.ru || "");
+  const term = (group, key) => tx(DATA.terms[group][key]);
+  const count = (n, key) => {
+    const f = t(key);
+    return n + " " + (lang === "ru" ? plural(n, f[0], f[1], f[2]) : n === 1 ? f[0] : f[1]);
+  };
+  const achText = (a) => a.name + " – " + tx(a);
 
   const $ = (id) => document.getElementById(id);
   const svg = $("svg"), mapEl = $("map");
@@ -366,12 +467,12 @@ const DATA = /*__DATA__*/null;
     return { time: day ? "day" : night ? "night" : "any", weather: dry ? "dry" : "any" };
   }
   function timeChip(time) {
-    if (time === "day") return chip("day", "sun", "днём");
-    if (time === "night") return chip("night", "moon", "ночью");
-    return chip("", "any", "днём и ночью");
+    if (time === "day") return chip("day", "sun", t("chipDay"));
+    if (time === "night") return chip("night", "moon", t("chipNight"));
+    return chip("", "any", t("chipAny"));
   }
   function weatherChip(w) {
-    return w === "dry" ? chip("", "dry", "без дождя") : chip("", "drop", "в дождь тоже");
+    return w === "dry" ? chip("", "dry", t("chipDry")) : chip("", "drop", t("chipWet"));
   }
   function spawnsNear(stop, key) {
     return DATA.spawns[area().id].filter((s) => s.s === key && dist(s, stop) <= 200);
@@ -393,29 +494,29 @@ const DATA = /*__DATA__*/null;
       const species = new Set(a.stops.flatMap((s) => s.targets));
       const first = a.stops[0].n, last = a.stops[a.stops.length - 1].n;
       b.appendChild(h("span", "tab-n", String(i + 1)));
-      b.appendChild(h("span", "tab-name", a.ru));
-      b.appendChild(h("span", "tab-sub", species.size + " " + plural(species.size, "вид", "вида", "видов") + " · точки " + first + "–" + last));
+      b.appendChild(h("span", "tab-name", tx(a)));
+      b.appendChild(h("span", "tab-sub", count(species.size, "species") + " · " + t("stops") + " " + first + "–" + last));
       b.addEventListener("click", () => { if (i !== areaIdx) { location.hash = a.slug; } });
       nav.appendChild(b);
     });
   }
 
   /* ---------- step list ---------- */
-  const PHASE = { day: "День", night: "Ночь, после лагеря", portal: "Портал" };
+  const PHASE = { day: "phaseDay", night: "phaseNight", portal: "phasePortal" };
   const PHASE_COLOR = { day: "var(--mk-day)", night: "var(--mk-night)", portal: "var(--mk-portal)" };
 
   function renderSteps() {
     const a = area();
-    $("area-lead").textContent = a.lead;
+    $("area-lead").textContent = tx(a.lead);
     const ol = $("steps"); ol.textContent = "";
     let prev = null;
     a.stops.forEach((st, i) => {
       if (st.phase !== prev) {
         const group = a.stops.slice(i).filter((_, j, arr) => arr.slice(0, j + 1).every((x) => x.phase === st.phase));
-        const range = group.length > 1 ? "точки " + group[0].n + "–" + group[group.length - 1].n : "точка " + group[0].n;
+        const range = group.length > 1 ? t("stops") + " " + group[0].n + "–" + group[group.length - 1].n : t("stop") + " " + group[0].n;
         const ph = h("li", "phase-head");
         const dot = h("span", "dot"); dot.style.background = PHASE_COLOR[st.phase];
-        ph.appendChild(dot); ph.appendChild(document.createTextNode(PHASE[st.phase] + " · " + range));
+        ph.appendChild(dot); ph.appendChild(document.createTextNode(t(PHASE[st.phase]) + " · " + range));
         ph.setAttribute("aria-hidden", "true");
         ol.appendChild(ph);
         prev = st.phase;
@@ -430,23 +531,23 @@ const DATA = /*__DATA__*/null;
     head.setAttribute("aria-expanded", st.n === selN ? "true" : "false");
     const badge = h("span", "badge " + st.phase, String(st.n));
     head.appendChild(badge);
-    head.appendChild(h("span", "step-title", st.title));
+    head.appendChild(h("span", "step-title", tx(st.title)));
     const done = st.targets.length && st.targets.every((k) => got.has(k));
-    if (done) { const d = h("span", "step-done"); d.appendChild(icon("check")); d.title = "Все сняты"; head.appendChild(d); }
+    if (done) { const d = h("span", "step-done"); d.appendChild(icon("check")); d.title = t("allShot"); head.appendChild(d); }
     else if (st.targets.length) head.appendChild(h("span", "step-count", st.targets.filter((k) => got.has(k)).length + "/" + st.targets.length));
     else head.appendChild(h("span", "step-count", ""));
     const sub = h("span", "step-sub");
     const need = stopNeeds(st);
-    if (st.phase === "portal") sub.appendChild(chip("portal", null, "портал"));
+    if (st.phase === "portal") sub.appendChild(chip("portal", null, t("portal")));
     if (need.time) sub.appendChild(timeChip(need.time));
     if (need.weather) sub.appendChild(weatherChip(need.weather));
-    if (st.camp) sub.appendChild(chip("camp", "tent", "лагерь"));
+    if (st.camp) sub.appendChild(chip("camp", "tent", t("camp")));
     head.appendChild(sub);
     head.addEventListener("click", () => select(st.n === selN ? null : st.n, { fly: true, from: "list" }));
     li.appendChild(head);
 
     const body = h("div", "step-body");
-    body.appendChild(h("p", null, st.text));
+    body.appendChild(h("p", null, tx(st.text)));
     const keys = st.targets.concat(st.extra || []);
     if (keys.length) {
       const ul = h("ul", "animals");
@@ -456,26 +557,28 @@ const DATA = /*__DATA__*/null;
         const id = "cb-" + st.n + "-" + k;
         const cb = h("input"); cb.type = "checkbox"; cb.id = id; cb.checked = got.has(k);
         cb.addEventListener("change", () => { cb.checked ? got.add(k) : got.delete(k); save(); renderTally(); renderSteps(); renderMap(); });
-        const lab = h("label"); lab.htmlFor = id; lab.textContent = s.ru + " ";
-        lab.appendChild(h("small", null, isExtra ? "· запасная точка" : "· " + s.en));
+        const lab = h("label"); lab.htmlFor = id; lab.textContent = tx(s);
+        // Russian rows also show the English name, which matches the game in English
+        const second = isExtra ? t("backupSpot") : lang === "ru" ? s.en : "";
+        if (second) { lab.appendChild(document.createTextNode(" ")); lab.appendChild(h("small", null, "· " + second)); }
         const near = spawnsNear(st, k).length;
         const bits = [
-          s.rarity.toLowerCase(), s.cls,
-          s.time === "day" ? "только днём" : s.time === "night" ? "только ночью" : "днём и ночью",
-          s.weather === "dry" ? "без дождя" : "погода любая",
-          s.habitat, s.reward + " " + plural(s.reward, "камешек", "камешка", "камешков")
+          term("rarity", s.rarity), term("cls", s.cls),
+          s.time === "day" ? t("onlyDay") : s.time === "night" ? t("onlyNight") : t("dayNight"),
+          s.weather === "dry" ? t("dry") : t("anyWeather"),
+          s.habitat.map((x) => term("habitat", x)).join(", "), count(s.reward, "pebbles")
         ];
-        if (s.spook) bits.push("пугается с " + s.spook + " м");
-        if (near) bits.push(near + " " + plural(near, "точка", "точки", "точек") + " в 200 м");
+        if (s.spook) bits.push(t("spook", { n: s.spook }));
+        if (near) bits.push(count(near, "spots") + " " + t("within"));
         row.appendChild(cb); row.appendChild(lab); row.appendChild(h("span", "meta", bits.join(" · ")));
         ul.appendChild(row);
       });
       body.appendChild(ul);
     }
     const note = (cls, title, text) => { const p = h("p", "note " + cls); p.appendChild(h("b", null, title)); p.appendChild(document.createTextNode(text)); body.appendChild(p); };
-    if (st.tip) note("tip", "Совет", st.tip);
-    if (st.backup) note("", "Если не вышел", st.backup);
-    if (st.ach) note("ach", "Ачивки", st.ach.join("; "));
+    if (st.tip) note("tip", t("tip"), tx(st.tip));
+    if (st.backup) note("", t("ifNot"), tx(st.backup));
+    if (st.ach) note("ach", t("ach"), st.ach.map(achText).join("; "));
     li.appendChild(body);
     return li;
   }
@@ -485,20 +588,20 @@ const DATA = /*__DATA__*/null;
     const c = $("caption"); c.textContent = "";
     const st = area().stops.find((s) => s.n === selN);
     if (!st) {
-      c.appendChild(h("span", "cap-title", area().ru));
-      c.appendChild(h("span", "step-count", "Нажмите на точку маршрута"));
+      c.appendChild(h("span", "cap-title", tx(area())));
+      c.appendChild(h("span", "step-count", t("tapStop")));
       return;
     }
     c.appendChild(h("span", "badge sm " + st.phase, String(st.n)));
-    c.appendChild(h("span", "cap-title", st.title));
+    c.appendChild(h("span", "cap-title", tx(st.title)));
     const need = stopNeeds(st), chips = h("span", "chips");
-    if (st.phase === "portal") chips.appendChild(chip("portal", null, "портал"));
+    if (st.phase === "portal") chips.appendChild(chip("portal", null, t("portal")));
     if (need.time) chips.appendChild(timeChip(need.time));
     if (need.weather) chips.appendChild(weatherChip(need.weather));
-    if (st.camp) chips.appendChild(chip("camp", "tent", "лагерь"));
+    if (st.camp) chips.appendChild(chip("camp", "tent", t("camp")));
     c.appendChild(chips);
-    if (st.targets.length) c.appendChild(h("span", "cap-sp", st.targets.map((k) => SP[k].ru).join(", ")));
-    const more = h("button", "cap-more", "Подробнее ↓"); more.type = "button";
+    if (st.targets.length) c.appendChild(h("span", "cap-sp", st.targets.map((k) => tx(SP[k])).join(", ")));
+    const more = h("button", "cap-more", t("more")); more.type = "button";
     more.addEventListener("click", () => { const card = $("step-" + st.n); if (card) card.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" }); });
     c.appendChild(more);
   }
@@ -572,15 +675,15 @@ const DATA = /*__DATA__*/null;
         el("circle", { cx: x, cy: y, r: 6 * s, fill: "var(--mk-halo)", stroke: "var(--mk-portal)", "stroke-width": 2.4 * s }, gLand);
       }
       // place the name right of the icon, else left; drop it when both sides would cover a stop marker
-      const tw = lm.ru.length * 6.6 * s, th = 14 * s;
+      const name = tx(lm), tw = name.length * 6.6 * s, th = 14 * s;
       const hits = (bx) => a.stops.some((st) => {
         const [qx, qy] = pos(st), rr = 16 * s;
         return qx + rr > bx && qx - rr < bx + tw && qy + rr > y - th && qy - rr < y + th / 2;
       });
       let lx = x + 8 * s, anchor = "start";
       if (hits(lx)) { lx = x - 8 * s; anchor = "end"; if (hits(lx - tw)) return; }
-      const t = el("text", { x: lx, y: y + 4 * s, "text-anchor": anchor, "font-size": 11.5 * s, "font-family": "Inter, system-ui, sans-serif", "font-weight": 600, fill: "var(--mk-ink)", stroke: "var(--mk-halo)", "stroke-width": 3.2 * s, "paint-order": "stroke", "stroke-linejoin": "round" }, gLand);
-      t.textContent = lm.ru;
+      const label = el("text", { x: lx, y: y + 4 * s, "text-anchor": anchor, "font-size": 11.5 * s, "font-family": "Inter, system-ui, sans-serif", "font-weight": 600, fill: "var(--mk-ink)", stroke: "var(--mk-halo)", "stroke-width": 3.2 * s, "paint-order": "stroke", "stroke-linejoin": "round" }, gLand);
+      label.textContent = name;
     });
 
     // route
@@ -615,7 +718,7 @@ const DATA = /*__DATA__*/null;
         const c = near
           ? el("circle", { cx: x, cy: y, r: 4.2 * s, fill: "var(--mk-ink)", stroke: "var(--mk-halo)", "stroke-width": 1.6 * s }, gSpawn)
           : el("circle", { cx: x, cy: y, r: 5 * s, fill: "var(--mk-halo)", stroke: "var(--mk-ink)", "stroke-width": 1.8 * s, "stroke-dasharray": (2.4 * s) + " " + (1.8 * s) }, gSpawn);
-        const tt = el("title", {}, c); tt.textContent = SP[sp.s].ru + (near ? " – у этой остановки" : " – запасная точка") + (sp.air ? ", в полёте" : "");
+        const tt = el("title", {}, c); tt.textContent = tx(SP[sp.s]) + " – " + (near ? t("atStop") : t("spare")) + (sp.air ? ", " + t("inFlight") : "");
       });
     }
 
@@ -623,12 +726,12 @@ const DATA = /*__DATA__*/null;
     stops.forEach((st) => {
       const [x, y] = pos(st), isSel = st.n === selN;
       const r = (isSel ? 16 : 13) * s;
-      const g = el("g", { class: "stop", tabindex: 0, role: "button", "aria-label": "Точка " + st.n + ": " + st.title, style: "cursor:pointer" }, gStops);
+      const g = el("g", { class: "stop", tabindex: 0, role: "button", "aria-label": t("stopAria", { n: st.n, title: tx(st.title) }), style: "cursor:pointer" }, gStops);
       if (isSel) el("circle", { cx: x, cy: y, r: r + 5 * s, fill: "none", stroke: "var(--mk-ink)", "stroke-width": 2.2 * s }, g);
       const fill = st.phase === "night" ? "var(--mk-night)" : st.phase === "portal" ? "var(--mk-portal)" : "var(--mk-day)";
       el("circle", { cx: x, cy: y, r, fill, stroke: "var(--mk-halo)", "stroke-width": 2.6 * s }, g);
-      const t = el("text", { x, y: y + (isSel ? 6.2 : 5) * s, "text-anchor": "middle", "font-size": (isSel ? 18 : 15) * s, "font-family": "'Barlow Condensed', 'Arial Narrow', sans-serif", "font-weight": 700, fill: "#ffffff" }, g);
-      t.textContent = st.n;
+      const num = el("text", { x, y: y + (isSel ? 6.2 : 5) * s, "text-anchor": "middle", "font-size": (isSel ? 18 : 15) * s, "font-family": "'Barlow Condensed', 'Arial Narrow', sans-serif", "font-weight": 700, fill: "#ffffff" }, g);
+      num.textContent = st.n;
       const done = st.targets.length && st.targets.every((k) => got.has(k));
       if (done) {
         const bx = x + r * 0.75, by = y - r * 0.75;
@@ -649,9 +752,9 @@ const DATA = /*__DATA__*/null;
     if (sel) {
       const [x, y] = pos(sel);
       const g = el("g", { "pointer-events": "none" }, gLabel);
-      const tx = el("text", { x: x + 24 * s, y: y + 5.5 * s, "font-size": 15 * s, "font-family": "Inter, system-ui, sans-serif", "font-weight": 600, fill: "var(--mk-ink)" }, g);
-      tx.textContent = sel.n + " · " + sel.title;
-      let w = 0; try { w = tx.getComputedTextLength(); } catch (e) { w = sel.title.length * 8 * s; }
+      const lt = el("text", { x: x + 24 * s, y: y + 5.5 * s, "font-size": 15 * s, "font-family": "Inter, system-ui, sans-serif", "font-weight": 600, fill: "var(--mk-ink)" }, g);
+      lt.textContent = sel.n + " · " + tx(sel.title);
+      let w = 0; try { w = lt.getComputedTextLength(); } catch (e) { w = lt.textContent.length * 8 * s; }
       const pad = 7 * s, bh = 24 * s, bw = w + 2 * pad, gap = 24 * s;
       // try right, left, above, below; keep the box inside the view and off the other markers and route vertices
       const m = 6 * s;
@@ -676,9 +779,9 @@ const DATA = /*__DATA__*/null;
       };
       let best = cands[0], bestScore = Infinity;
       cands.forEach((c) => { const sc = score(c); if (sc < bestScore) { bestScore = sc; best = c; } });
-      tx.setAttribute("x", best[0] + pad); tx.setAttribute("y", best[1] + bh / 2 + 5.5 * s);
+      lt.setAttribute("x", best[0] + pad); lt.setAttribute("y", best[1] + bh / 2 + 5.5 * s);
       const rect = el("rect", { x: best[0], y: best[1], width: bw, height: bh, rx: 6 * s, fill: "var(--mk-halo)", stroke: "var(--mk-ink)", "stroke-width": 1.2 * s, opacity: 0.96 });
-      g.insertBefore(rect, tx);
+      g.insertBefore(rect, lt);
     }
   }
 
@@ -701,7 +804,7 @@ const DATA = /*__DATA__*/null;
   function setArea(i, keepSel) {
     areaIdx = i;
     $("map-img").setAttribute("href", area().map);
-    $("map-area-name").textContent = area().ru;
+    $("map-area-name").textContent = tx(area());
     if (!keepSel) selN = area().stops.find((s) => s.targets.length) ? area().stops[0].n : null;
     renderTabs(); renderSteps(); renderCaption();
     view = routeView(); applyView();
@@ -772,13 +875,41 @@ const DATA = /*__DATA__*/null;
   $("fit").addEventListener("click", () => flyTo(routeView()));
 
   /* ---------- static panels ---------- */
-  DATA.rules.forEach((r) => $("rules").appendChild(h("li", null, r)));
-  const achRows = [];
-  DATA.areas.forEach((a) => a.stops.forEach((st) => (st.ach || []).forEach((t) => achRows.push([st.n, t]))));
-  achRows.forEach(([n, t]) => { const li = h("li"); li.appendChild(document.createTextNode(t + " ")); li.appendChild(h("span", null, "– точка " + n)); $("ach").appendChild(li); });
-  DATA.extraAch.forEach((t) => $("ach").appendChild(h("li", null, t)));
+  function renderPanels() {
+    const rules = $("rules"), ach = $("ach");
+    rules.textContent = ""; ach.textContent = "";
+    DATA.rules.forEach((r) => rules.appendChild(h("li", null, tx(r))));
+    DATA.areas.forEach((a) => a.stops.forEach((st) => (st.ach || []).forEach((x) => {
+      const li = h("li"); li.appendChild(document.createTextNode(achText(x) + " "));
+      li.appendChild(h("span", null, "– " + t("stop") + " " + st.n)); ach.appendChild(li);
+    })));
+    DATA.extraAch.forEach((x) => ach.appendChild(h("li", null, achText(x))));
+  }
+
+  /* ---------- language switch ---------- */
+  function applyStatic() {
+    document.documentElement.lang = lang;
+    document.title = t("title");
+    document.querySelectorAll("[data-i18n]").forEach((n) => { n.textContent = t(n.dataset.i18n); });
+    document.querySelectorAll("[data-i18n-aria]").forEach((n) => { n.setAttribute("aria-label", t(n.dataset.i18nAria)); });
+    document.querySelectorAll("[data-i18n-html]").forEach((n) => { n.innerHTML = t(n.dataset.i18nHtml); });
+    document.querySelectorAll(".lang [data-lang]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.lang === lang ? "true" : "false"));
+  }
+  function setLang(l) {
+    if (!LANGS.includes(l) || l === lang) return;
+    lang = l;
+    try { localStorage.setItem(LANG_STORE, l); } catch (e) { /* storage unavailable */ }
+    // keep the choice in the address so a copied link opens in the same language
+    try { const u = new URL(location.href); u.searchParams.set("lang", l); history.replaceState(history.state, "", u.pathname + u.search + u.hash); } catch (e) { /* ignore */ }
+    applyStatic(); renderPanels(); renderTabs(); renderSteps(); renderCaption();
+    $("map-area-name").textContent = tx(area());
+    renderMap();
+  }
+  document.querySelectorAll(".lang [data-lang]").forEach((b) => b.addEventListener("click", () => setLang(b.dataset.lang)));
 
   /* ---------- boot ---------- */
+  applyStatic();
+  renderPanels();
   renderTally();
   setArea(fromHash());
   window.addEventListener("hashchange", () => { const i = fromHash(); if (i !== areaIdx) setArea(i); });
